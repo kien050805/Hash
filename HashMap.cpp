@@ -7,3 +7,6 @@
 // This file contains the implementation of the HashMap class
 // template
 //==============================================================
+
+#include "HashMap.hpp"
+using namespace std;
