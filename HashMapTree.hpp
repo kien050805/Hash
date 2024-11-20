@@ -10,10 +10,7 @@
 #define HASHMAPTREE_HPP
 
 #include <vector>
-#include <utility> 
-#include <stdexcept>
 #include <iostream>
-#include <functional>
 
 using namespace std;
 
@@ -25,36 +22,39 @@ private:
         V value;
         TreeNode* left;
         TreeNode* right;
+        int height;
 
-        TreeNode(const K& key, const V& value)
-            : key(key), value(value), left(nullptr), right(nullptr) {}
+        TreeNode(const K& k, const V& v)
+            : key(k), value(v), left(nullptr), right(nullptr), height(1) {}
     };
 
-    vector<TreeNode*> table; // Hash table with BSTs in each bucket
-    size_t tableSize;        // Number of buckets
-    size_t numElements;      // Number of key-value pairs
+    TreeNode** table; 
+    long slots;
+    long size;
+    const long DEFAULT_SLOTS = 1024;
+    Hash<K> h;
 
-    size_t hash(const K& key) const {
-        return hash<K>()(key) % tableSize; // Hashing function
-    }
-
-    TreeNode* insertNode(TreeNode* root, const K& key, const V& value);
-    TreeNode* removeNode(TreeNode* root, const K& key);
-    TreeNode* findMin(TreeNode* root) const;
-    TreeNode* searchNode(TreeNode* root, const K& key) const;
-    void deleteTree(TreeNode* root);
+    // Private helper functions for Complete binary tree operations
+    TreeNode* insertTree(TreeNode* node, const K& key, const V& value);
+    TreeNode* removeTree(TreeNode* node, const K& key);
+    TreeNode* searchTree(TreeNode* node, const K& key);
+    TreeNode* minValueNode(TreeNode* node);
+    int getHeight(TreeNode* node);
+    int getBalance(TreeNode* node);
+    TreeNode* rotateRight(TreeNode* y);
+    TreeNode* rotateLeft(TreeNode* x);
+    void destroyTree(TreeNode* node);
 
 public:
-    HashMapTree(size_t size = 101);
+    HashMapTree();
+    HashMapTree(long m);
     ~HashMapTree();
 
     void insert(const K& key, const V& value);
     void remove(const K& key);
     V& operator[](const K& key);
-    pair<K, V>* search(const K& key);
+    V* search(const K& key);
 
-    size_t size() const { return numElements; }
-    size_t capacity() const { return tableSize; }
 };
 
 #endif 
