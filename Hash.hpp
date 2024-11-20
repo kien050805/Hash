@@ -1,3 +1,10 @@
+//========================================================
+// James Bui & Kien Le & Trinity Meckel
+// November 2024
+// Hash.hpp
+// This file contains the HashFunction class declaration.  
+//========================================================
+
 #include <iostream>
 
 using namespace std;
@@ -15,7 +22,7 @@ private:
 
 public:
     Hash ();
-    Hash(long slots);
+    Hash (size_t slots, size_t prime);
     size_t getHash(const T &key);
 };
 

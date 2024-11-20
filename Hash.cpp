@@ -1,5 +1,13 @@
+//========================================================
+// James Bui & Kien Le & Trinity Meckel
+// November 2024
+// Hash.cpp
+// This file contains the HashFunction class definitions.  
+//========================================================
+
 #include "Hash.hpp"
 #include <cstdlib>
+#include <functional>
 
 template <class T>
 Hash<T>::Hash ()
@@ -9,25 +17,21 @@ Hash<T>::Hash ()
 };
 
 template <class T>
-Hash<T>::Hash (long slots)
+Hash<T>::Hash (size_t slots, size_t prime)
 {
     m = slots;
+    p = prime;
+    a = rand() % p + 1;
+    b = rand() % p;
 };
 
 template <class T>
 size_t Hash<T>::getHash (const T &key)
 {
-    const char* keyBytes = reinterpret_cast<const char*>(&key);
-    size_t hash = 0;
-    size_t keySize = sizeof(T);
-
-    // Combine bytes into the hash using modular arithmetic
-    for (size_t i = 0; i < keySize; ++i) {
-        hash = (hash * a + static_cast<unsigned char>(keyBytes[i])) % p;
-    }
-
+    std::hash<T> hasher;
+    size_t hash = hasher(key);
     // Add b and reduce modulo p
-    hash = (hash + b) % p;
+    hash = (a*hash + b) % p;
 
     // Final modulo m
     return hash % m;
