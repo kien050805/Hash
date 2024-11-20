@@ -20,10 +20,17 @@ template <class K, class V>
 class HashMap
 {
 private:
+    struct Node
+    {
+        pair<K, V> item;
+        Node *next;
+        Node *prev;
+    };
+
     const long DEFAULT_SLOTS = 1024;
     long slots;
     long size;
-    vector<pair<K, V>> *table;
+    Node **table;
     Hash<K> h;
 
 public:
@@ -32,7 +39,8 @@ public:
     ~HashMap();
 
     void insert(const K &key, const V &value);
-    void remove(const K &key);
+    void remove(Node *D);
+    void del(const K&key);
     V &operator[](const K &key);
     pair<K, V> *search(const K &key);
 };

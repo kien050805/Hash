@@ -16,7 +16,11 @@ HashMap<K, V>::HashMap()
 {
     size = 0;
     slots = DEFAULT_SLOTS;
-    table = new vector<pair<K, V>>[slots];
+    table = new Node *[slots];
+    for (int i = 0; i < slots; i++)
+    {
+        table[i] = nullptr;
+    };
     h = Hash<K>(slots);
 };
 
@@ -25,7 +29,11 @@ HashMap<K, V>::HashMap(long m)
 {
     size = 0;
     slots = m;
-    table = new vector<pair<K, V>>[slots];
+    table = new Node *[slots];
+    for (int i = 0; i < slots; i++)
+    {
+        table[i] = nullptr;
+    };
     h = Hash<K>(slots);
 };
 
@@ -39,29 +47,73 @@ template <class K, class V>
 void HashMap<K, V>::insert(const K &key, const V &value)
 {
     long slot = h(key);
-    for (int i = 0; i < table[slot].size(); i++)
+    Node *temp = table[slot];
+    while (temp != nullptr)
     {
-        if (table[slot][i].first == key)
+        if (temp->item.first == key)
         {
-            table[slot][i].second = value;
+            temp->item.second = value;
             return;
         }
+        temp = temp->next;
     }
 
-    table[slot].push_back(make_pair(key, value));
+    temp = new Node;
+    temp->item = make_pair(key, value);
+    temp->next = table[slot];
+    temp->prev = nullptr;
+    if (table[slot] != nullptr)
+    {
+        table[slot]->prev = temp;
+    }
+
+    table[slot] = temp;
+
     size++;
-};
+}
 
 template <class K, class V>
-void HashMap<K, V>::remove(const K &key)
+void HashMap<K, V>::remove(Node *D)
+{
+    long slot = h(D->item.first);
+
+    if (D->prev == nullptr && D->next == nullptr)
+    {
+        table[slot] = nullptr;
+    }
+    else if (D->prev == nullptr)
+    {
+        table[slot] = D->next;
+        D->next->prev = nullptr;
+    }
+
+    else if (D->next == nullptr)
+    {
+        D->prev->next = nullptr;
+    }
+
+    else
+    {
+        D->prev->next = D->next;
+        D->next->prev = D->prev;
+    }
+
+    delete D;
+}
+
+template <class K, class V>
+void HashMap<K, V>::del(const K &key)
 {
     long slot = h(key);
-    for (int i = 0; i < table[slot].size(); i++)
+    Node *temp = table[slot];
+    while (temp != nullptr)
     {
-        if (table[slot][i].first == key)
+        if (temp->item.first == key)
         {
-            table[slot].erase(table[slot].begin() + i);
+            remove(temp);
+            break;
         };
+        temp = temp->next;
     };
     size--;
 };
@@ -70,12 +122,14 @@ template <class K, class V>
 V &HashMap<K, V>::operator[](const K &key)
 {
     long slot = h(key);
-    for (int i = 0; i < table[slot].size(); i++)
+    Node *temp = table[slot];
+    while (temp != nullptr)
     {
-        if (table[slot][i].first == key)
+        if (temp->item.first == key)
         {
-            return table[slot][i].second;
+            return temp->item.second;
         };
+        temp = temp->next;
     };
 
     throw key_exception();
@@ -85,11 +139,14 @@ template <class K, class V>
 pair<K, V> *HashMap<K, V>::search(const K &key)
 {
     long slot = h(key);
-    for (int i = 0; i < size; i++)
+    Node *temp = table[slot];
+    while (temp != nullptr)
     {
-        if (table[slot][i].first == key)
+        if (temp->item.first == key)
         {
-            return table[slot][i];
+            return &temp->item;
         };
+        temp = temp->next;
     };
+    return nullptr;
 };
