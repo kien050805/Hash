@@ -33,7 +33,7 @@ public:
     void insert(const K& key, const V& value);
     void remove(const K& key);
     V& operator[](const K& key);
-    V* search(const K& key);
+    pair<K, V>* search(const K& key);
 
 };
 
