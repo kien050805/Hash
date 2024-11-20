@@ -32,7 +32,7 @@ public:
     ~HashMap();
 
     void insert(const K &key, const V &value);
-    void remove(const K &);
+    void remove(const K &key);
     V &operator[](const K &key);
     pair<K, V> *search(const K &key);
 };

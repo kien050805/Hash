@@ -7,9 +7,9 @@
 // This file contains the implementation of the HashMap class
 // template
 //==============================================================
+#include <vector>
 #include "HashMap.hpp"
-
-using namespace std;
+#include "customexceptions.hpp"
 
 template <class K, class V>
 HashMap<K, V>::HashMap()
@@ -39,36 +39,57 @@ template <class K, class V>
 void HashMap<K, V>::insert(const K &key, const V &value)
 {
     long slot = h(key);
-    for (int i = 0; i < table[slot].size(); i++) {
-        if (table[slot][i].first == key) {
+    for (int i = 0; i < table[slot].size(); i++)
+    {
+        if (table[slot][i].first == key)
+        {
             table[slot][i].second = value;
             return;
         }
     }
 
     table[slot].push_back(make_pair(key, value));
-    size++; 
+    size++;
 };
 
 template <class K, class V>
-void HashMap<K, V>::remove(const K &) {
-
+void HashMap<K, V>::remove(const K &key)
+{
+    long slot = h(key);
+    for (int i = 0; i < table[slot].size(); i++)
+    {
+        if (table[slot][i].first == key)
+        {
+            table[slot].erase(table[slot].begin() + i);
+        };
+    };
+    size--;
 };
 
 template <class K, class V>
 V &HashMap<K, V>::operator[](const K &key)
 {
     long slot = h(key);
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < table[slot].size(); i++)
     {
         if (table[slot][i].first == key)
         {
             return table[slot][i].second;
         };
     };
+
+    throw key_exception();
 };
 
 template <class K, class V>
-pair<K, V> *HashMap<K, V>::search(const K &key) {
-
+pair<K, V> *HashMap<K, V>::search(const K &key)
+{
+    long slot = h(key);
+    for (int i = 0; i < size; i++)
+    {
+        if (table[slot][i].first == key)
+        {
+            return table[slot][i];
+        };
+    };
 };
