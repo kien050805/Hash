@@ -16,5 +16,7 @@ HashMapTree.o: HashMapTree.cpp HashMapTree.hpp
 Set.o: Set.cpp Set.hpp
 	g++ -c Set.cpp
 
-
+clean:
+	rm *.o mytests
+	clear
 

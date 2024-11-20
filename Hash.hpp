@@ -9,12 +9,14 @@ template <class T>
 class Hash
 {
 private:
-    long m;
+    size_t p = 37;
+    size_t m = 101;
+    size_t a, b;
 
 public:
     Hash ();
     Hash(long slots);
-    long operator()(const T k);
+    size_t getHash(const T &key);
 };
 
 #endif
