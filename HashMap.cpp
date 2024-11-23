@@ -43,7 +43,7 @@ HashMap<K, V>::HashMap(long m)
 {
     if (m < 0)
     {
-        throw size_exception();
+        throw size_exception("Error: The number of slots in the HashMap cannot be negative.");
     };
 
     size = 0;
@@ -175,7 +175,7 @@ void HashMap<K, V>::del(const K &key)
         temp = temp->next;
     };
 
-    throw key_exception();
+    throw key_exception("Error: The key is not in the HashMap.");
 };
 
 /**
@@ -200,7 +200,7 @@ V &HashMap<K, V>::operator[](const K &key)
         temp = temp->next;
     };
 
-    throw key_exception();
+    throw key_exception("Error: The key is not in the HashMap.");
 };
 
 /**
