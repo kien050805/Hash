@@ -28,11 +28,17 @@ Hash<T>::Hash (size_t slots, size_t prime)
 template <class T>
 size_t Hash<T>::getHash (const T &key)
 {
-    std::hash<T> hasher;
+    hash<T> hasher;
     size_t hash = hasher(key);
     // Add b and reduce modulo p
     hash = (a*hash + b) % p;
 
     // Final modulo m
     return hash % m;
+};
+
+template <class T>
+long Hash<T>::operator() (const T k)
+{
+    return getHash(k);
 };
