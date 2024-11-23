@@ -8,6 +8,7 @@
 //==============================================================
 #include <iostream>
 #include <vector>
+#include <utility>
 
 using namespace std;
 
@@ -40,7 +41,7 @@ public:
 
     void insert(const K &key, const V &value);
     void remove(Node *D);
-    void del(const K&key);
+    void del(const K &key);
     V &operator[](const K &key);
     pair<K, V> *search(const K &key);
 };
