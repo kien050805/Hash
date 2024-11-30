@@ -43,7 +43,7 @@ size_t Hash<T>::getHash (const T &key)
 };
 
 template <class T>
-long Hash<T>::operator() (const T k)
+size_t Hash<T>::operator() (const T k)
 {
     return getHash(k);
 };

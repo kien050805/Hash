@@ -24,7 +24,7 @@ public:
     Hash ();
     Hash (size_t slots, size_t prime);
     size_t getHash(const T &key);
-    long operator()(const T k);
+    size_t operator()(const T k);
 };
 
 #endif

@@ -90,7 +90,7 @@ HashMap<K, V>::~HashMap()
 template <class K, class V>
 void HashMap<K, V>::insert(const K &key, const V &value)
 {
-    long slot = h(key);
+    size_t slot = h(key);
 
     Node *temp = table[slot];
     while (temp != nullptr)
@@ -126,7 +126,7 @@ void HashMap<K, V>::insert(const K &key, const V &value)
 template <class K, class V>
 void HashMap<K, V>::remove(Node *D)
 {
-    long slot = h(D->item.first);
+    size_t slot = h(D->item.first);
 
     if (D->prev == nullptr && D->next == nullptr)
     {
@@ -162,7 +162,7 @@ void HashMap<K, V>::remove(Node *D)
 template <class K, class V>
 void HashMap<K, V>::del(const K &key)
 {
-    long slot = h(key);
+    size_t slot = h(key);
     Node *temp = table[slot];
     while (temp != nullptr)
     {
@@ -189,7 +189,7 @@ void HashMap<K, V>::del(const K &key)
 template <class K, class V>
 V &HashMap<K, V>::operator[](const K &key)
 {
-    long slot = h(key);
+    size_t slot = h(key);
     Node *temp = table[slot];
     while (temp != nullptr)
     {
@@ -214,7 +214,7 @@ V &HashMap<K, V>::operator[](const K &key)
 template <class K, class V>
 pair<K, V> *HashMap<K, V>::search(const K &key)
 {
-    long slot = h(key);
+    size_t slot = h(key);
     Node *temp = table[slot];
     while (temp != nullptr)
     {

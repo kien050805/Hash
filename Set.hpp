@@ -17,11 +17,11 @@ using namespace std;
 template <typename T>
 class Set {
 private:
-    HashMap<size_t, T> table;
-    Hash<T> hasher;
+    HashMap<T, T> table;
 
 public:
     Set();
+    Set(size_t table_size);
     Set(const Set<T> &s);
     ~Set();
     Set<T> operator=(const Set<T> &tree);

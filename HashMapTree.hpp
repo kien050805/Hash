@@ -15,7 +15,6 @@ using namespace std;
 #define HASHMAPTREE_HPP
 
 #include <utility>
-#include "Pair.hpp"
 #include "RBTree.hpp"
 #include "Hash.hpp"
 #include "customexceptions.hpp"
@@ -24,8 +23,8 @@ template <class K, class V>
 class HashMapTree
 {
 private:
-    const long DEFAULT_SLOTS = 1024;
-    long slots;
+    const size_t DEFAULT_SLOTS = 1024;
+    size_t slots;
     long size;
     RBTree<pair<K, V> > *table;
     Hash<K> h;

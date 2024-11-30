@@ -28,8 +28,8 @@ private:
         Node *prev;
     };
 
-    const long DEFAULT_SLOTS = 1024;
-    long slots;
+    const size_t DEFAULT_SLOTS = 1024;
+    size_t slots;
     long size;
     Node **table;
     Hash<K> h;

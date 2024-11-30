@@ -39,7 +39,7 @@ HashMapTree<K, V>::~HashMapTree()
 template <class K, class V>
 void HashMapTree<K, V>::insert(const K &key, const V &value)
 {
-    long slot = h(key);
+    size_t slot = h(key);
     pair<K, V> temp = make_pair(key, value);
     RBTreeNode<pair<K, V> > *check_temp = table[slot].search(temp);
     if (check_temp == nullptr)
@@ -56,7 +56,7 @@ void HashMapTree<K, V>::insert(const K &key, const V &value)
 template <class K, class V>
 void HashMapTree<K, V>::remove(const K &key)
 {
-    long slot = h(key);
+    size_t slot = h(key);
     pair<K, V> temp(key, V());
     if (table[slot].search(temp) != nullptr)
     {
@@ -72,7 +72,7 @@ void HashMapTree<K, V>::remove(const K &key)
 template <class K, class V>
 V &HashMapTree<K, V>::operator[](const K &key)
 {
-    long slot = h(key);
+    size_t slot = h(key);
     pair<K, V> temp(key, V());
     RBTreeNode<pair<K, V> > *item = table[slot].search(temp);
 
@@ -87,7 +87,7 @@ V &HashMapTree<K, V>::operator[](const K &key)
 template <class K, class V>
 pair<K, V> *HashMapTree<K, V>::search(const K &key)
 {
-    long slot = h(key);
+    size_t slot = h(key);
     pair<K, V> temp(key, V());
     RBTreeNode<pair<K, V> > *item = table[slot].search(temp);
     if (item == nullptr)
