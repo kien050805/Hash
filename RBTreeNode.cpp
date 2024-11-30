@@ -6,8 +6,8 @@
 // Description:
 // This file contains the implementations of the red-black tree node functions
 //==============================================================
-#include "RBTreeNode.hpp"
 #include <iostream>
+#include "RBTreeNode.hpp"
 
 using namespace std;
 

@@ -47,4 +47,6 @@ public:
     friend class RBTree<T>;
 };
 
+#include "RBTreeNode.cpp"
+
 #endif

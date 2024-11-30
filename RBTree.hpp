@@ -5,12 +5,17 @@
 //
 // This is the header file with definitions of functions for the RBTree class
 //=========================================================
+#include <iostream>
 using namespace std;
 
 #ifndef RBTREE_HPP
 #define RBTREE_HPP
 
+#include <utility>
 #include "RBTreeNode.hpp"
+#include "customexceptions.hpp"
+#include "Pair.hpp"
+
 
 template <class T>
 class RBTree
@@ -29,8 +34,9 @@ private:
     void right_rotate(RBTreeNode<T> *node);
     void NIL_fixup();
 
-    RBTreeNode<T> *copy (const RBTreeNode<T> *node, const RBTree<T> &tree);
+    RBTreeNode<T> *copy(const RBTreeNode<T> *node, const RBTree<T> &tree);
     void deallocate(RBTreeNode<T> *node);
+
 public:
     RBTree();
     RBTree(const RBTree<T> &tree);
@@ -39,12 +45,12 @@ public:
 
     bool isEmpty() const;
     long size() const;
-    RBTreeNode<T> *search(T value) const;
+    RBTreeNode<T> *search(const T &value);
     RBTreeNode<T> *treeMin() const;
     RBTreeNode<T> *treeMax() const;
 
     bool is_balanced() const;
-    
+
     void printPreOrderTraversal() const;
     void printInOrderTraversal() const;
     void printPostOrderTraversal() const;
@@ -52,5 +58,7 @@ public:
     RBTreeNode<T> *insert(T value);
     void remove(T value);
 };
+
+#include "RBTree.cpp"
 
 #endif
