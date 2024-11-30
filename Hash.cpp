@@ -29,7 +29,12 @@ template <class T>
 size_t Hash<T>::getHash (const T &key)
 {
     hash<T> hasher;
-    size_t hash = hasher(key);
+    size_t hash;
+    if (sizeof(key) <= 64)
+        hash = key;
+    else
+        hash = hasher(key);
+
     // Add b and reduce modulo p
     hash = (a*hash + b) % p;
 
