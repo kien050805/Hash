@@ -30,7 +30,7 @@ Hash<T>::Hash ()
 
 //==============================================================
 // Hash
-// Copy constructor for the Hash class. Initializes 
+// Parameterized constructor for the Hash class. Initializes 
 // the hash parameters `a`, `b`, and `m` based on the provided 
 // values for slots and prime.
 // PARAMETERS:
