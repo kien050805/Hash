@@ -16,8 +16,8 @@ template <class T>
 class Hash
 {
 private:
-    size_t p = 37;
-    size_t m = 101;
+    size_t p = 1000003;
+    size_t m = 10000019;
     size_t a, b;
 
 public:

@@ -23,7 +23,8 @@ template <class K, class V>
 class HashMapTree
 {
 private:
-    const long DEFAULT_SLOTS = 1024;
+    const size_t DEFAULT_SLOTS = 10000019;
+    const size_t DEFAULT_PRIME = 1000003;
     long slots;
     long size;
     RBTree<pair<K, V> > *table;
@@ -31,7 +32,7 @@ private:
 
 public:
     HashMapTree();
-    HashMapTree(long m);
+    HashMapTree(size_t m);
     ~HashMapTree();
 
     void insert(const K &key, const V &value);

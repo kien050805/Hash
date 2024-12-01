@@ -131,7 +131,7 @@ RBTreeNode<T> *RBTree<T>::treeMin() const
 {
     if (isEmpty())
     {
-        throw empty_tree_exception();
+        throw empty_tree_exception("Empty Tree");
     }
     else
     {
@@ -150,7 +150,7 @@ RBTreeNode<T> *RBTree<T>::treeMax() const
 {
     if (isEmpty())
     {
-        throw empty_tree_exception();
+        throw empty_tree_exception("Empty Tree");
     }
     else
     {
@@ -331,7 +331,7 @@ void RBTree<T>::remove(T value)
 {
     if (isEmpty())
     {
-        throw empty_tree_exception();
+        throw empty_tree_exception("Empty Tree");
     }
 
     RBTreeNode<T> *deleted = search(value);

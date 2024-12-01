@@ -15,7 +15,7 @@ using namespace std;
 template <typename T>
 Hash<T>::Hash ()
 {
-    a = rand() % p + 1;
+    a = rand() % (p - 1) + 1;
     b = rand() % p;
 };
 
@@ -24,7 +24,7 @@ Hash<T>::Hash (size_t slots, size_t prime)
 {
     m = slots;
     p = prime;
-    a = rand() % p + 1;
+    a = rand() % (p - 1) + 1;
     b = rand() % p;
 };
 

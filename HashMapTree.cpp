@@ -8,16 +8,16 @@ HashMapTree<K, V>::HashMapTree()
 {
     size = 0;
     slots = DEFAULT_SLOTS;
-    h = Hash<K>(slots, slots);
+    h = Hash<K>(slots, DEFAULT_PRIME);
     table = new RBTree<pair<K, V>>[slots];
 };
 
 template <class K, class V>
-HashMapTree<K, V>::HashMapTree(long m)
+HashMapTree<K, V>::HashMapTree(size_t m)
 {
     size = 0;
     slots = m;
-    h = Hash<K>(slots, slots);
+    h = Hash<K>(slots, DEFAULT_PRIME);
     table = new RBTree<pair<K, V>>[slots];
 };
 
@@ -31,7 +31,7 @@ template <class K, class V>
 void HashMapTree<K, V>::insert(const K &key, const V &value)
 {
 
-    long slot = h(key);
+    size_t slot = h(key);
     pair<K, V> temp(key, value);
     RBTreeNode<pair<K, V>> *check_temp = table[slot].search(temp);
     if (check_temp == nullptr)
@@ -48,7 +48,7 @@ void HashMapTree<K, V>::insert(const K &key, const V &value)
 template <class K, class V>
 void HashMapTree<K, V>::remove(const K &key)
 {
-    long slot = h(key);
+    size_t slot = h(key);
     pair<K, V> temp(key, V());
     if (table[slot].search(temp) != nullptr)
     {
@@ -57,14 +57,14 @@ void HashMapTree<K, V>::remove(const K &key)
     }
     else
     {
-        throw key_exception();
+        throw key_exception("Key Not Found");
     }
 };
 
 template <class K, class V>
 V &HashMapTree<K, V>::operator[](const K &key)
 {
-    long slot = h(key);
+    size_t slot = h(key);
     pair<K, V> temp(key, V());
     RBTreeNode<pair<K, V>> *item = table[slot].search(temp);
     if (item != nullptr)
@@ -72,13 +72,13 @@ V &HashMapTree<K, V>::operator[](const K &key)
         V ans = item->value().second();
         return ans;
     }
-    throw key_exception();
+    throw key_exception("Key Not Found");
 };
 
 template <class K, class V>
 pair<K, V> *HashMapTree<K, V>::search(const K &key)
 {
-    long slot = h(key);
+    size_t slot = h(key);
     pair<K, V> temp(key, V());
     RBTreeNode<pair<K, V>> *item = table[slot].search(temp);
     if (item == nullptr)
