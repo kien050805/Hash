@@ -1,3 +1,10 @@
+//========================================================
+// James Bui & Kien Le & Trinity Meckel
+// November 2024
+// HashMapTree.cpp
+// This file includes the implementation of the HashMapTree
+// class template
+//========================================================
 #include <iostream>
 #include "HashMapTree.hpp"
 
