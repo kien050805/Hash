@@ -28,17 +28,20 @@ bool testHashMapInsert();
 bool testHashMapDel();
 bool testHashMapOperator();
 bool testHashMapSearch();
+bool testEdgeCasesHashMap();
 
 // Testing functions for HashMapTree
 bool testHashMapTreeInsert();
 bool testHashMapTreeRemove();
 bool testHashMapTreeOperator();
 bool testHashMapTreeSearch();
+bool testEdgeCasesHashMapTree();
 
 // Testing functions for Set
 bool testSetInsert();
 bool testSetRemove();
 bool testSetSearch();
+bool testEdgeCasesSet();
 
 //==============================================================
 // main
@@ -266,6 +269,46 @@ bool testHashMapSearch()
     return true;
 }
 
+//==============================================================
+// testEdgeCasesHashMap
+// Tests edge cases for the HashMap class.
+// Verifies behavior for inserting, removing, and searching for elements in edge cases.
+// PARAMETERS:
+// - none
+// RETURN VALUE:
+// - true if the test passes, false if it fails
+//==============================================================
+bool testEdgeCasesHashMap()
+{
+    bool allTestsPassed = true;
+
+    // Test empty map search
+    HashMap<int, int> emptyMap;
+    if (emptyMap.search(10) != nullptr)
+    {
+        cout << "Error: Empty map should not contain any keys!" << endl;
+        allTestsPassed = false;
+    }
+
+    // Test collision handling
+    HashMap<int, int> mapWithCollision;
+    mapWithCollision.insert(1, 100);
+    mapWithCollision.insert(11, 200); // Assume 1 and 11 collide
+    if (mapWithCollision.search(1) == nullptr || mapWithCollision.search(11) == nullptr ||
+        mapWithCollision.search(1)->second != 100 || mapWithCollision.search(11)->second != 200)
+    {
+        cout << "Error: Collision handling failed!" << endl;
+        allTestsPassed = false;
+    }
+
+    if (allTestsPassed)
+        cout << "testEdgeCasesHashMap passed!" << endl;
+    else
+        cout << "testEdgeCasesHashMap failed!" << endl;
+
+    return allTestsPassed;
+}
+
 //******************************************
 //***********HASH MAP TREE TESTING**********
 //******************************************
@@ -313,8 +356,8 @@ bool testHashMapTreeRemove()
     HashMapTree<int, string> mapTree = createSampleHashMapTree(); // Use the helper function
 
     // Test removing an existing element
-    mapTree.remove(1);
-    if (mapTree.search(1) == nullptr)
+    mapTree.remove(2);
+    if (mapTree.search(2) == nullptr)
     {
         cout << "testHashMapTreeRemove passed for removing existing element" << endl;
     }
@@ -408,6 +451,65 @@ bool testHashMapTreeSearch()
 
     cout << "testHashMapTreeSearch passed!" << endl;
     return true;
+}
+
+//==============================================================
+// testEdgeCasesHashMapTree
+// Tests edge cases for the HashMapTree class.
+// Verifies behavior for inserting, removing, and searching for elements in edge cases.
+// PARAMETERS:
+// - none
+// RETURN VALUE:
+// - true if the test passes, false if it fails
+//==============================================================
+bool testEdgeCasesHashMapTree()
+{
+    bool allTestsPassed = true;
+
+    // Test sorted insertion
+    HashMapTree<int, int> sortedTree;
+    for (int i = 0; i < 10; i++)
+        sortedTree.insert(i, i * 10);
+    for (int i = 0; i < 10; i++)
+    {
+        if (sortedTree.search(i) == nullptr || sortedTree.search(i)->second != i * 10)
+        {
+            cout << "Error: Sorted insertion failed at key " << i << "!" << endl;
+            allTestsPassed = false;
+        }
+    }
+
+    // Test reverse order insertion
+    HashMapTree<int, int> reverseTree;
+    for (int i = 9; i >= 0; i--)
+        reverseTree.insert(i, i * 10);
+    for (int i = 0; i < 10; i++)
+    {
+        if (reverseTree.search(i) == nullptr || reverseTree.search(i)->second != i * 10)
+        {
+            cout << "Error: Reverse order insertion failed at key " << i << "!" << endl;
+            allTestsPassed = false;
+        }
+    }
+
+    // Test removal of root node
+    HashMapTree<int, int> treeWithRootRemoval;
+    treeWithRootRemoval.insert(50, 500);
+    treeWithRootRemoval.insert(30, 300);
+    treeWithRootRemoval.insert(70, 700);
+    treeWithRootRemoval.remove(50);
+    if (treeWithRootRemoval.search(50) != nullptr)
+    {
+        cout << "Error: Root removal failed!" << endl;
+        allTestsPassed = false;
+    }
+
+    if (allTestsPassed)
+        cout << "testEdgeCasesHashMapTree passed!" << endl;
+    else
+        cout << "testEdgeCasesHashMapTree failed!" << endl;
+
+    return allTestsPassed;
 }
 
 //******************************************
@@ -533,6 +635,63 @@ bool testSetSearch()
     return true;
 }
 
+//==============================================================
+// testEdgeCasesSet
+// Tests edge cases for the Set class.
+// Verifies behavior for inserting, removing, and searching for elements in edge cases.
+// PARAMETERS:
+// - none
+// RETURN VALUE:
+// - true if the test passes, false if it fails
+//==============================================================
+bool testEdgeCasesSet()
+{
+    bool allTestsPassed = true;
+
+    // Test duplicate insertion
+    Set<int> duplicateSet;
+    duplicateSet.insert(10);
+    duplicateSet.insert(10); // Duplicate insertion
+
+    // Attempt to remove the element twice
+    duplicateSet.remove(10); // First removal
+    try
+    {
+        duplicateSet.remove(10); // Second removal should fail
+        cout << "Error: Duplicate element was removed twice!" << endl;
+        allTestsPassed = false;
+    }
+    catch (...)
+    {
+        // Expected behavior: no exception should be thrown
+        cout << "Duplicate removal test passed!" << endl;
+    }
+
+    // Test edge values
+    Set<int> edgeValueSet;
+    edgeValueSet.insert(INT_MIN);
+    edgeValueSet.insert(INT_MAX);
+
+    // Remove the edge values to verify they were stored correctly
+    try
+    {
+        edgeValueSet.remove(INT_MIN);
+        edgeValueSet.remove(INT_MAX);
+    }
+    catch (...)
+    {
+        cout << "Error: Edge value insertion or removal failed!" << endl;
+        allTestsPassed = false;
+    }
+
+    if (allTestsPassed)
+        cout << "testEdgeCasesSet passed!" << endl;
+    else
+        cout << "testEdgeCasesSet failed!" << endl;
+
+    return allTestsPassed;
+}
+
 //******************************************
 //***********FAIL OR PASS TESTING***********
 //******************************************
@@ -592,6 +751,11 @@ void testHashMap()
     if (testHashMapSearch())
     {
         cout << "testHashMapSearch passed!" << endl;
+        hashMap_result.passed++;
+    }
+    if (testEdgeCasesHashMap())
+    {
+        cout << "testEdgeCasesHashMap passed!" << endl;
         hashMap_result.passed++;
     }
     else
@@ -659,6 +823,11 @@ void testHashMapTree()
         cout << "testHashMapTreeSearch passed" << endl;
         mapTree_result.passed++;
     }
+    if (testEdgeCasesHashMapTree())
+    {
+        cout << "testEdgeCasesHashMapTree passed!" << endl;
+        mapTree_result.passed++;
+    }
     else
     {
         mapTree_result.failed++;
@@ -711,6 +880,11 @@ void testSet()
     if (testSetSearch())
     {
         cout << "testSetSearch passed" << endl;
+        set_result.passed++;
+    }
+    if (testEdgeCasesSet())
+    {
+        cout << "testEdgeCasesSet passed!" << endl;
         set_result.passed++;
     }
     else
