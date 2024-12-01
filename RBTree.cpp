@@ -329,7 +329,7 @@ void RBTree<T>::remove(T value)
 {
     if (isEmpty())
     {
-        throw empty_tree_exception("Empty Tree");
+        throw empty_tree_exception();
     }
 
     RBTreeNode<T> *deleted = search(value);

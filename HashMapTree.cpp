@@ -150,7 +150,7 @@ void HashMapTree<K, V>::remove(const K &key)
     }
     else
     {
-        throw key_exception("Key Not Found");
+        throw key_exception();
     }
 };
 
@@ -177,7 +177,7 @@ V &HashMapTree<K, V>::operator[](const K &key)
         V ans = item->value().second();
         return ans;
     }
-    throw key_exception("Key Not Found");
+    throw key_exception();
 };
 
 //==============================================================
