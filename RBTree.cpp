@@ -1,11 +1,9 @@
-//==============================================================
+//========================================================
+// James Bui & Kien Le & Trinity Meckel
+// November 2024
 // RBTree.cpp
-// Authors : Kien, Trinity, James
-// 11/22/2024
-//
-// Description:
 // This file contains the implementations of the red-black tree functions
-//==============================================================
+//========================================================
 #include "RBTree.hpp"
 
 
