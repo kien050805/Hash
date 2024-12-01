@@ -1,19 +1,45 @@
-//=========================================================
-// RBTree.hpp
-// Authors : Kien, Trinity, James
-// 11/24/2024
-//
-// This is the header file with definitions of functions for the RBTree class
-//=========================================================
 #include <iostream>
-using namespace std;
 
 #ifndef RBTREE_HPP
 #define RBTREE_HPP
 
 #include <utility>
 #include "RBTreeNode.hpp"
+#include "customexceptions.hpp"
 
+namespace custom
+{
+    template <class K, class V>
+    bool operator==(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
+    {
+        return p1.first == p2.first;
+    }
+    template <class K, class V>
+    bool operator!=(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
+    {
+        return p1.first != p2.first;
+    }
+    template <class K, class V>
+    bool operator<(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
+    {
+        return p1.first < p2.first;
+    }
+    template <class K, class V>
+    bool operator>(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
+    {
+        return p1.first > p2.first;
+    }
+    template <class K, class V>
+    bool operator<=(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
+    {
+        return p1.first <= p2.first;
+    }
+    template <class K, class V>
+    bool operator>=(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
+    {
+        return p1.first >= p2.first;
+    }
+};
 
 template <class T>
 class RBTree

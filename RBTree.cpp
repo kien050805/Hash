@@ -8,7 +8,6 @@
 //==============================================================
 #include "RBTree.hpp"
 
-using namespace std;
 
 /**
  * @brief Construct a new RBTree<T>::RBTree object
@@ -105,11 +104,11 @@ RBTreeNode<T> *RBTree<T>::search(const T &value)
     RBTreeNode<T> *current = root;
     while (current != NIL)
     {
-        if (value == current->val)
+        if (custom::operator==(value, current->val))
         {
             return current;
         }
-        else if (value < current->val)
+        else if (custom::operator<(value, current->val))
         {
             current = current->left;
         }
@@ -230,7 +229,7 @@ RBTreeNode<T> *RBTree<T>::insert(T value)
     while (current != NIL)
     {
         parent = current;
-        if (inserted->val <= current->val)
+        if (custom::operator<=(inserted->val, current->val))
         {
             current = current->left;
         }
@@ -242,10 +241,10 @@ RBTreeNode<T> *RBTree<T>::insert(T value)
 
     inserted->parent = parent;
     if (parent == NIL)
-    {
+    { 
         root = inserted;
     }
-    else if (inserted->val <= parent->val)
+    else if (custom::operator<=(inserted->val, parent->val))
     {
         parent->left = inserted;
     }
@@ -338,7 +337,7 @@ void RBTree<T>::remove(T value)
     RBTreeNode<T> *deleted = search(value);
     if (deleted == NIL)
     {
-        throw value_not_in_tree("value not found");
+        throw value_not_in_tree_exception();
     }
 
     RBTreeNode<T> *y = deleted;

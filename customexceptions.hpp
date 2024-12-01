@@ -1,72 +1,36 @@
-#include <exception>
 #include <iostream>
-
+#include <exception>
 using namespace std;
 
-class value_not_in_tree : public exception
-{
-private:
-    const char *message;
+#ifndef CUSTOMEXCEPTIONS_HPP
+#define CUSTOMEXCEPTIONS_HPP
 
+class value_not_in_tree_exception : public exception {
 public:
-    value_not_in_tree(const char *msg)
-    {
-        message = msg;
-    }
-
-    const char *what() const noexcept
-    {
-        return message;
+    const char* what() const throw() {
+        return "Error: Value not in tree exception.";
     }
 };
 
-class empty_tree_exception : public exception
-{
-private:
-    const char *message;
-
+class empty_tree_exception : public exception {
 public:
-    empty_tree_exception(const char *msg)
-    {
-        message = msg;
-    }
-
-    const char *what() const noexcept
-    {
-        return message;
+    const char* what() const throw() {
+        return "Error: Empty tree exception.";
     }
 };
 
-class key_exception : public exception
-{
-private:
-    const char *message;
-
+class key_exception : public exception {
 public:
-    key_exception(const char *msg)
-    {
-        message = msg;
-    }
-
-    const char *what() const noexcept
-    {
-        return message;
+    const char* what() const throw() {
+        return "Error: Key exception.";
     }
 };
 
-class size_exception : public exception
-{
-private:
-    const char *message;
-
+class size_exception : public exception {
 public:
-    size_exception(const char *msg)
-    {
-        message = msg;
-    }
-
-    const char *what() const noexcept
-    {
-        return message;
+    const char* what() const throw() {
+        return "Error: Size exception.";
     }
 };
+
+#endif

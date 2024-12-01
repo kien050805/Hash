@@ -42,7 +42,7 @@ public:
     void printPreOrderTraversal() const;
     void printInOrderTraversal() const;
     void printPostOrderTraversal() const;
-    T value() const;
+    T *value();
 
     friend class RBTree<T>;
 };

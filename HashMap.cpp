@@ -9,6 +9,7 @@
 //==============================================================
 #include <vector>
 #include "HashMap.hpp"
+#include "customexceptions.hpp"
 
 /**
  * @brief Construct a new Hash Map<K,V>:: Hash Map object
@@ -42,7 +43,7 @@ HashMap<K, V>::HashMap(long m)
 {
     if (m < 0)
     {
-        throw size_exception("Error: The number of slots in the HashMap cannot be negative.");
+        throw size_exception();
     };
 
     size = 0;
@@ -89,7 +90,7 @@ HashMap<K, V>::~HashMap()
 template <class K, class V>
 void HashMap<K, V>::insert(const K &key, const V &value)
 {
-    size_t slot = h(key);
+    long slot = h(key);
 
     Node *temp = table[slot];
     while (temp != nullptr)
@@ -125,7 +126,7 @@ void HashMap<K, V>::insert(const K &key, const V &value)
 template <class K, class V>
 void HashMap<K, V>::remove(Node *D)
 {
-    size_t slot = h(D->item.first);
+    long slot = h(D->item.first);
 
     if (D->prev == nullptr && D->next == nullptr)
     {
@@ -161,7 +162,7 @@ void HashMap<K, V>::remove(Node *D)
 template <class K, class V>
 void HashMap<K, V>::del(const K &key)
 {
-    size_t slot = h(key);
+    long slot = h(key);
     Node *temp = table[slot];
     while (temp != nullptr)
     {
@@ -174,7 +175,7 @@ void HashMap<K, V>::del(const K &key)
         temp = temp->next;
     };
 
-    throw key_exception("Error: The key is not in the HashMap.");
+    throw key_exception();
 };
 
 /**
@@ -188,7 +189,7 @@ void HashMap<K, V>::del(const K &key)
 template <class K, class V>
 V &HashMap<K, V>::operator[](const K &key)
 {
-    size_t slot = h(key);
+    long slot = h(key);
     Node *temp = table[slot];
     while (temp != nullptr)
     {
@@ -199,7 +200,7 @@ V &HashMap<K, V>::operator[](const K &key)
         temp = temp->next;
     };
 
-    throw key_exception("Error: The key is not in the HashMap.");
+    throw key_exception();
 };
 
 /**
@@ -213,7 +214,7 @@ V &HashMap<K, V>::operator[](const K &key)
 template <class K, class V>
 pair<K, V> *HashMap<K, V>::search(const K &key)
 {
-    size_t slot = h(key);
+    long slot = h(key);
     Node *temp = table[slot];
     while (temp != nullptr)
     {

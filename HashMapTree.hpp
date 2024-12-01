@@ -17,13 +17,14 @@ using namespace std;
 #include <utility>
 #include "RBTree.hpp"
 #include "Hash.hpp"
+#include "customexceptions.hpp"
 
 template <class K, class V>
 class HashMapTree
 {
 private:
-    const size_t DEFAULT_SLOTS = 1024;
-    size_t slots;
+    const long DEFAULT_SLOTS = 1024;
+    long slots;
     long size;
     RBTree<pair<K, V> > *table;
     Hash<K> h;
@@ -38,35 +39,6 @@ public:
     V &operator[](const K &key);
     pair<K, V> *search(const K &key);
 
-    friend bool operator==(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
-    {
-        return p1.first == p2.first;
-    }
-
-    friend bool operator!=(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
-    {
-        return p1.first != p2.first;
-    }
-
-    friend bool operator<(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
-    {
-        return p1.first < p2.first;
-    }
-
-    friend bool operator>(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
-    {
-        return p1.first > p2.first;
-    }
-
-    friend bool operator<=(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
-    {
-        return p1.first <= p2.first;
-    }
-
-    friend bool operator>=(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
-    {
-        return p1.first >= p2.first;
-    }
 };
 
 #include "HashMapTree.cpp"

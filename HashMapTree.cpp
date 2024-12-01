@@ -1,12 +1,3 @@
-//==============================================================
-// HashMapTree.cpp
-// Authors : Kien, Trinity, James
-// 11/22/2024
-//
-// Description:
-// This file contains the implementation of the HashMapTree 
-// class template
-//==============================================================
 #include <iostream>
 #include "HashMapTree.hpp"
 
@@ -18,7 +9,7 @@ HashMapTree<K, V>::HashMapTree()
     size = 0;
     slots = DEFAULT_SLOTS;
     h = Hash<K>(slots, slots);
-    table = new RBTree<pair<K, V> >[slots];
+    table = new RBTree<pair<K, V>>[slots];
 };
 
 template <class K, class V>
@@ -27,7 +18,7 @@ HashMapTree<K, V>::HashMapTree(long m)
     size = 0;
     slots = m;
     h = Hash<K>(slots, slots);
-    table = new RBTree<pair<K, V> >[slots];
+    table = new RBTree<pair<K, V>>[slots];
 };
 
 template <class K, class V>
@@ -39,9 +30,10 @@ HashMapTree<K, V>::~HashMapTree()
 template <class K, class V>
 void HashMapTree<K, V>::insert(const K &key, const V &value)
 {
-    size_t slot = h(key);
-    pair<K, V> temp = make_pair(key, value);
-    RBTreeNode<pair<K, V> > *check_temp = table[slot].search(temp);
+
+    long slot = h(key);
+    pair<K, V> temp(key, value);
+    RBTreeNode<pair<K, V>> *check_temp = table[slot].search(temp);
     if (check_temp == nullptr)
     {
         table[slot].insert(temp);
@@ -49,14 +41,14 @@ void HashMapTree<K, V>::insert(const K &key, const V &value)
     }
     else
     {
-        table[slot].remove(check_temp->value());
+        table[slot].remove(*check_temp->value());
         table[slot].insert(temp);
     };
 }
 template <class K, class V>
 void HashMapTree<K, V>::remove(const K &key)
 {
-    size_t slot = h(key);
+    long slot = h(key);
     pair<K, V> temp(key, V());
     if (table[slot].search(temp) != nullptr)
     {
@@ -72,13 +64,12 @@ void HashMapTree<K, V>::remove(const K &key)
 template <class K, class V>
 V &HashMapTree<K, V>::operator[](const K &key)
 {
-    size_t slot = h(key);
+    long slot = h(key);
     pair<K, V> temp(key, V());
-    RBTreeNode<pair<K, V> > *item = table[slot].search(temp);
-
+    RBTreeNode<pair<K, V>> *item = table[slot].search(temp);
     if (item != nullptr)
     {
-        V ans = item->value().second;
+        V ans = item->value().second();
         return ans;
     }
     throw key_exception();
@@ -87,12 +78,13 @@ V &HashMapTree<K, V>::operator[](const K &key)
 template <class K, class V>
 pair<K, V> *HashMapTree<K, V>::search(const K &key)
 {
-    size_t slot = h(key);
+    long slot = h(key);
     pair<K, V> temp(key, V());
-    RBTreeNode<pair<K, V> > *item = table[slot].search(temp);
+    RBTreeNode<pair<K, V>> *item = table[slot].search(temp);
     if (item == nullptr)
     {
         return nullptr;
     };
-    return table[slot].search(temp)->value();
+    
+    return item->value();
 };

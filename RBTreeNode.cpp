@@ -9,7 +9,6 @@
 #include <iostream>
 #include "RBTreeNode.hpp"
 
-using namespace std;
 
 /**
  * @brief Construct a new RBTreeNode<T>::RBTreeNode object
@@ -196,7 +195,7 @@ void RBTreeNode<T>::printPostOrderTraversal() const
  * @return T: value of the node
  */
 template <class T>
-T RBTreeNode<T>::value() const 
+T *RBTreeNode<T>::value() 
 {
-    return val;
+    return &val;
 };
