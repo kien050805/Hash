@@ -25,7 +25,7 @@ HashMapTree<K, V>::HashMapTree()
     size = 0;
     slots = DEFAULT_SLOTS;
     h = Hash<K>(slots, DEFAULT_PRIME);
-    table = new RBTree<pair<K, V> >[slots];
+    table = new RBTreePair[slots];
 };
 
 //==============================================================
@@ -43,7 +43,7 @@ HashMapTree<K, V>::HashMapTree(size_t m)
     size = 0;
     slots = m;
     h = Hash<K>(slots, DEFAULT_PRIME);
-    table = new RBTree<pair<K, V> >[slots];
+    table = new RBTreePair[slots];
 };
 
 //==============================================================
@@ -206,4 +206,124 @@ pair<K, V> *HashMapTree<K, V>::search(const K &key)
     };
 
     return item->value();
+};
+
+template <class K, class V>
+RBTreeNode<pair<K, V> > *HashMapTree<K, V>::RBTreePair::search(const pair<K, V> &key) const
+{
+    RBTreeNode<pair<K, V> > *current = this->root;
+    while (current != this->NIL)
+    {
+        if (custom::operator==(key, current->val))
+        {
+            return current;
+        }
+        else if (custom::operator<(key, current->val))
+        {
+            current = current->left;
+        }
+        else
+        {
+            current = current->right;
+        }
+    }
+    return nullptr;
+};
+
+template <class K, class V>
+RBTreeNode<pair<K, V> > *HashMapTree<K, V>::RBTreePair::insert(pair<K, V> value)
+{
+    RBTreeNode<pair<K, V> > *inserted = new RBTreeNode<pair<K, V> >(value);
+    RBTreeNode<pair<K, V> > *current = this->root;
+    RBTreeNode<pair<K, V> > *parent = this->NIL;
+
+    while (current != this->NIL)
+    {
+        parent = current;
+        if (custom::operator<=(inserted->val, current->val))
+        {
+            current = current->left;
+        }
+        else
+        {
+            current = current->right;
+        }
+    }
+
+    inserted->parent = parent;
+    if (parent == this->NIL)
+    {
+        this->root = inserted;
+    }
+    else if (custom::operator<=(inserted->val, parent->val))
+    {
+        parent->left = inserted;
+    }
+    else
+    {
+        parent->right = inserted;
+    }
+    inserted->left = this->NIL;
+    inserted->right = this->NIL;
+    inserted->color = RED;
+    this->insert_fixup(inserted);
+    this->NIL_fixup();
+    this->rbt_size++;
+    return inserted;
+};
+
+template <class K, class V>
+void HashMapTree<K, V>::RBTreePair::remove(pair<K, V> value)
+{
+    if (this->isEmpty())
+    {
+        throw empty_tree_exception();
+    }
+
+    RBTreeNode<pair<K, V> > *deleted = search(value);
+    if (deleted == this->NIL)
+    {
+        throw value_not_in_tree_exception();
+    }
+
+    RBTreeNode<pair<K, V> > *y = deleted;
+    RBTreeNode<pair<K, V> > *x;
+    Color original_color = y->color;
+    if (deleted->left == this->NIL)
+    {
+        x = deleted->right;
+        this->transplant(deleted, deleted->right);
+    }
+    else if (deleted->right == this->NIL)
+    {
+        x = deleted->left;
+        this->transplant(deleted, deleted->left);
+    }
+    else
+    {
+        y = deleted->right->treeMin();
+        original_color = y->color;
+        x = y->right;
+        if (y != deleted->right)
+        {
+            this->transplant(y, y->right);
+            y->right = deleted->right;
+            y->right->parent = y;
+        }
+        else
+        {
+            x->parent = y;
+        };
+        this->transplant(deleted, y);
+        y->left = deleted->left;
+        y->left->parent = y;
+        y->color = deleted->color;
+    }
+    if (original_color == BLACK)
+    {
+        this->delete_fixup(x);
+    }
+    delete deleted;
+    this->NIL_fixup();
+    this->rbt_size--;
 };

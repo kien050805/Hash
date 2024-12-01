@@ -16,6 +16,40 @@ using namespace std;
 #include "Hash.hpp"
 #include "customexceptions.hpp"
 
+namespace custom
+{
+    template <class K, class V>
+    bool operator==(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
+    {
+        return p1.first == p2.first;
+    }
+    template <class K, class V>
+    bool operator!=(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
+    {
+        return p1.first != p2.first;
+    }
+    template <class K, class V>
+    bool operator<(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
+    {
+        return p1.first < p2.first;
+    }
+    template <class K, class V>
+    bool operator>(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
+    {
+        return p1.first > p2.first;
+    }
+    template <class K, class V>
+    bool operator<=(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
+    {
+        return p1.first <= p2.first;
+    }
+    template <class K, class V>
+    bool operator>=(const std::pair<K, V> &p1, const std::pair<K, V> &p2)
+    {
+        return p1.first >= p2.first;
+    }
+};
+
 template <class K, class V>
 class HashMapTree
 {
@@ -24,21 +58,29 @@ private:
     const size_t DEFAULT_PRIME = 1000003;
     long slots;
     long size;
-    RBTree<pair<K, V> > *table;
     Hash<K> h;
+
+    class RBTreePair : public RBTree<pair<K, V> >
+    {
+    public:
+        RBTreeNode<pair<K, V> > *search(const pair<K, V> &key) const;
+        RBTreeNode<pair<K, V> > *insert(pair<K, V> value);
+        void remove(pair<K, V> value);
+    };
+
+    RBTreePair *table;
 
 public:
     HashMapTree();
     HashMapTree(size_t m);
-    HashMapTree(const HashMapTree& copy);
+    HashMapTree(const HashMapTree &copy);
     ~HashMapTree();
-    HashMapTree<K, V>& operator=(const HashMapTree<K, V>& copy);
+    HashMapTree<K, V> &operator=(const HashMapTree<K, V> &copy);
 
     void insert(const K &key, const V &value);
     void remove(const K &key);
     V &operator[](const K &key);
     pair<K, V> *search(const K &key);
-
 };
 
 #include "HashMapTree.cpp"

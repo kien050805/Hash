@@ -102,11 +102,11 @@ RBTreeNode<T> *RBTree<T>::search(const T &value)
     RBTreeNode<T> *current = root;
     while (current != NIL)
     {
-        if (custom::operator==(value, current->val))
+        if (value == current->val)
         {
             return current;
         }
-        else if (custom::operator<(value, current->val))
+        else if (value < current->val)
         {
             current = current->left;
         }
@@ -227,7 +227,7 @@ RBTreeNode<T> *RBTree<T>::insert(T value)
     while (current != NIL)
     {
         parent = current;
-        if (custom::operator<=(inserted->val, current->val))
+        if (inserted->val <= current->val)
         {
             current = current->left;
         }
@@ -242,7 +242,7 @@ RBTreeNode<T> *RBTree<T>::insert(T value)
     { 
         root = inserted;
     }
-    else if (custom::operator<=(inserted->val, parent->val))
+    else if (inserted->val <= parent->val)
     {
         parent->left = inserted;
     }

@@ -22,7 +22,7 @@ class RBTree;
 template <class T>
 class RBTreeNode
 {
-private:
+public:
     T val;
     RBTreeNode *parent;
     RBTreeNode *left;
