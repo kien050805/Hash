@@ -1,3 +1,10 @@
+//========================================================
+// James Bui & Kien Le & Trinity Meckel
+// November 2024
+// customexceptions.hpp
+// This header file defines custom exception classes in
+// Hash Classes and Set
+//========================================================
 #include <iostream>
 #include <exception>
 using namespace std;
