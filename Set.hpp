@@ -31,6 +31,8 @@ public:
     bool search(const T &value);
 };
 
+#include "Set.hpp"
+
 #endif 
 
 

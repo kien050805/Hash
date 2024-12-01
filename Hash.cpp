@@ -8,15 +8,18 @@
 #include "Hash.hpp"
 #include <cstdlib>
 #include <functional>
+#include <iostream>
 
-template <class T>
+using namespace std;
+
+template <typename T>
 Hash<T>::Hash ()
 {
     a = rand() % p + 1;
     b = rand() % p;
 };
 
-template <class T>
+template <typename T>
 Hash<T>::Hash (size_t slots, size_t prime)
 {
     m = slots;
@@ -25,12 +28,12 @@ Hash<T>::Hash (size_t slots, size_t prime)
     b = rand() % p;
 };
 
-template <class T>
+template <typename T>
 size_t Hash<T>::getHash (const T &key)
 {
     hash<T> hasher;
     size_t hash;
-    if (sizeof(key) <= 64)
+    if (sizeof(key) <= 8)
         hash = key;
     else
         hash = hasher(key);
@@ -42,7 +45,7 @@ size_t Hash<T>::getHash (const T &key)
     return hash % m;
 };
 
-template <class T>
+template <typename T>
 size_t Hash<T>::operator() (const T k)
 {
     return getHash(k);

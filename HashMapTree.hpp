@@ -17,7 +17,6 @@ using namespace std;
 #include <utility>
 #include "RBTree.hpp"
 #include "Hash.hpp"
-#include "customexceptions.hpp"
 
 template <class K, class V>
 class HashMapTree

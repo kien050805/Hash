@@ -46,4 +46,6 @@ public:
     pair<K, V> *search(const K &key);
 };
 
+#include "HashMap.cpp"
+
 #endif

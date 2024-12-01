@@ -1,11 +1,11 @@
 all: mytests
 
-mytests: mytests.o HashMap.o HashMapTree.o Set.o
-	g++ -o mytests HashMap.o HashMapTree.o Set.o mytests.o 
+mytests: mytests.o 
+	g++ -o mytests mytests.o 
 	./mytests
 
-mytests.o: mytests.cpp
-	g++ -c mytests.cpp
+mytests.o: mytests.cpp HashMap.cpp HashMap.hpp HashMapTree.cpp HashMapTree.hpp Set.cpp Set.hpp
+	g++ -o mytests.o -c mytests.cpp
 
 HashMap.o: HashMap.cpp HashMap.hpp
 	g++ -c HashMap.cpp

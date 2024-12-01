@@ -338,7 +338,7 @@ void RBTree<T>::remove(T value)
     RBTreeNode<T> *deleted = search(value);
     if (deleted == NIL)
     {
-        throw value_not_in_tree_exception();
+        throw value_not_in_tree("value not found");
     }
 
     RBTreeNode<T> *y = deleted;

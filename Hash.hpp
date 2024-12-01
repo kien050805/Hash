@@ -27,4 +27,6 @@ public:
     size_t operator()(const T k);
 };
 
+#include "Hash.cpp"
+
 #endif

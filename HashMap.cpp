@@ -9,7 +9,6 @@
 //==============================================================
 #include <vector>
 #include "HashMap.hpp"
-#include "customexceptions.hpp"
 
 /**
  * @brief Construct a new Hash Map<K,V>:: Hash Map object
