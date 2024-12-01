@@ -5,13 +5,12 @@
 // This file contains the implementation of the HashMap class
 // template
 //==============================================================
-#include <vector>
 #include "HashMap.hpp"
 #include "customexceptions.hpp"
 
 //==============================================================
 // HashMap
-// Default constructor for the HashMap class. Initializes the 
+// Default constructor for the HashMap class. Initializes the
 // hash table with the default number of slots and a hash function.
 // PARAMETERS:
 // - none
@@ -34,7 +33,7 @@ HashMap<K, V>::HashMap()
 
 //==============================================================
 // HashMap
-// Parameterized constructor for the HashMap class. Initializes 
+// Parameterized constructor for the HashMap class. Initializes
 // the hash table with a custom number of slots and a hash function.
 // PARAMETERS:
 // - m: Number of hash table slots.
@@ -61,8 +60,26 @@ HashMap<K, V>::HashMap(long m)
 };
 
 //==============================================================
+// HashMap
+// Copy constructor for the HashMap class. 
+// PARAMETERS:
+// - map: the reference to the map to be copied.
+// RETURN VALUE:
+// - none
+//==============================================================
+template <class K, class V>
+HashMap<K, V>::HashMap(const HashMap<K, V> &map)
+{
+    slots = map.slots;
+    size = map.size;
+    table = new Node *[slots];
+    copy(map);
+    h = map.h;
+}
+
+//==============================================================
 // ~HashMap
-// Destructor for the HashMap class. Deletes all nodes in the hash 
+// Destructor for the HashMap class. Deletes all nodes in the hash
 // table and frees the allocated memory for the table.
 // PARAMETERS:
 // - none
@@ -86,8 +103,88 @@ HashMap<K, V>::~HashMap()
 }
 
 //==============================================================
+// HashMap
+// Copy helper function for the HashMap class. This function performs
+// deep copy over the hash table.
+// PARAMETERS:
+// - map: the reference to the map to be copied.
+// RETURN VALUE:
+// - none
+//==============================================================
+template <class K, class V>
+void HashMap<K, V>::copy(const HashMap<K, V> &map)
+{
+    for (long i = 0; i < slots; i++)
+    {
+        if (map.table[i] == nullptr)
+        {
+            table[i] = nullptr;
+        }
+        else
+        {
+            Node *current = map.table[i];
+            Node *temp = new Node();
+            temp->item = make_pair(current->item.first, current->item.second);
+            temp->prev = nullptr;
+            table[i] = temp;
+
+            while (current->next != nullptr)
+            {
+                current = current->next;
+
+                Node *next_node = new Node();
+                next_node->item = make_pair(current->item.first, current->item.second);
+
+                temp->next = next_node;
+                next_node->prev = temp;
+                temp = next_node;
+            }
+            temp->next = nullptr;
+        }
+    }
+};
+
+//==============================================================
+// HashMap
+// Overloaded assignment operator for the HashMap class. 
+// This function performs a deep copy of the given HashMap 
+// object.
+//
+// PARAMETERS:
+// - map: The reference to the HashMap object to be copied.
+//
+// RETURN VALUE:
+// - *this
+//==============================================================
+template <class K, class V>
+HashMap<K, V> HashMap<K, V>::operator=(const HashMap<K, V> &map)
+{
+    if (this != &map)
+    {
+        for (long i = 0; i < slots; i++)
+        {
+            Node *current = table[i];
+            while (current)
+            {
+                Node *temp = current;
+                current = current->next;
+                delete temp;
+            }
+        }
+        delete[] table;
+
+        slots = map.slots;
+        size = map.size;
+        table = new Node *[slots];
+        copy(map);
+        h = map.h;
+    }
+    return *this;
+};
+
+//==============================================================
 // insert
-// Inserts a new item (key, value) into the hash table. If the 
+// Inserts a new item (key, value) into the hash table. If the
 // key already exists, updates the value.
 // PARAMETERS:
 // - key: The key of the item to insert.
@@ -190,7 +287,7 @@ void HashMap<K, V>::del(const K &key)
 
 //==============================================================
 // operator[]
-// Accesses the value associated with the specified key. If the 
+// Accesses the value associated with the specified key. If the
 // key does not exist, throws an exception.
 // PARAMETERS:
 // - key: The key of the item to access.
@@ -216,8 +313,8 @@ V &HashMap<K, V>::operator[](const K &key)
 
 //==============================================================
 // search
-// Searches for the item with the given key in the hash table. 
-// Returns a pointer to the key-value pair if found, otherwise 
+// Searches for the item with the given key in the hash table.
+// Returns a pointer to the key-value pair if found, otherwise
 // returns nullptr.
 // PARAMETERS:
 // - key: The key of the item to search for.
@@ -240,4 +337,3 @@ pair<K, V> *HashMap<K, V>::search(const K &key)
 
     return nullptr;
 };
-
