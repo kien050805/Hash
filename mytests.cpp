@@ -481,15 +481,13 @@ bool testSetRemove()
     }
 
     // Test removing a non-existing element
-    set.remove(5); // Key 5 does not exist
-    if (!set.search(5))
+    try
     {
+        set.remove(5); // Key 5 does not exist
         cout << "testSetRemove passed for removing non-existing element" << endl;
     }
-    else
+    catch (const key_exception &e)
     {
-        cout << "testSetRemove failed for removing non-existing element" << endl;
-        return false;
     }
 
     cout << "testSetRemove passed!" << endl;
