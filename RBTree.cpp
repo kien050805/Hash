@@ -129,7 +129,7 @@ RBTreeNode<T> *RBTree<T>::treeMin() const
 {
     if (isEmpty())
     {
-        throw empty_tree_exception("Empty Tree");
+        throw empty_tree_exception();
     }
     else
     {
@@ -148,7 +148,7 @@ RBTreeNode<T> *RBTree<T>::treeMax() const
 {
     if (isEmpty())
     {
-        throw empty_tree_exception("Empty Tree");
+        throw empty_tree_exception();
     }
     else
     {
