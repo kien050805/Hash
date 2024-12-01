@@ -33,7 +33,9 @@ private:
 public:
     HashMapTree();
     HashMapTree(size_t m);
+    HashMapTree(const HashMapTree& copy);
     ~HashMapTree();
+    HashMapTree<K, V>& operator=(const HashMapTree<K, V>& copy);
 
     void insert(const K &key, const V &value);
     void remove(const K &key);

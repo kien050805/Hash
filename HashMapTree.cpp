@@ -27,6 +27,25 @@ HashMapTree<K, V>::~HashMapTree()
     delete[] table;
 };
 
+template<class K, class V>
+HashMapTree<K, V>::HashMapTree(const HashMapTree& copy) {
+    if (this != &copy) {
+        size = copy.size;
+        h = copy.h;
+        table = copy.table;
+    }
+}
+
+template<class K, class V>
+HashMapTree<K, V>& HashMapTree<K, V>::operator=(const HashMapTree<K, V>& copy) {
+    if (this != &copy) {
+        size = copy.size;
+        h = copy.h;
+        table = copy.table;
+    }
+    return *this;
+}
+
 template <class K, class V>
 void HashMapTree<K, V>::insert(const K &key, const V &value)
 {
