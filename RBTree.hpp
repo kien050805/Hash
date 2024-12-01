@@ -1,3 +1,10 @@
+//========================================================
+// James Bui & Kien Le & Trinity Meckel
+// November 2024
+// RBTree.hpp
+// This header files defines the RBTree class template
+//========================================================
+
 #include <iostream>
 
 #ifndef RBTREE_HPP
