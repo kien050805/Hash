@@ -16,7 +16,14 @@ HashMapTree.o: HashMapTree.cpp HashMapTree.hpp
 Set.o: Set.cpp Set.hpp
 	g++ -c Set.cpp
 
+performance.o: performance.cpp
+	g++ -c performance.cpp
+
+performance: performance.o
+	g++ -o performance performance.o
+	./performance
+
 clean:
-	rm *.o mytests
+	rm *.o mytests performance
 	clear
 

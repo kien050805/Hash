@@ -337,3 +337,45 @@ pair<K, V> *HashMap<K, V>::search(const K &key)
 
     return nullptr;
 };
+
+//==============================================================
+// search
+// Searches for the item with the given key in the hash table.
+// Returns a pointer to the key-value pair if found, otherwise
+// returns nullptr.
+// PARAMETERS:
+// - key: The key of the item to search for.
+// RETURN VALUE:
+// - pair<K, V>*: Pointer to the item (key-value pair), or nullptr if not found.
+//==============================================================
+template <class K, class V>
+typename HashMap<K, V>::Node *HashMap<K, V>::search_node(const K &key)
+{
+    long slot = h(key);
+    Node *temp = table[slot];
+    while (temp != nullptr)
+    {
+        if (temp->item.first == key)
+        {
+            return temp;
+        };
+        temp = temp->next;
+    };
+
+    return nullptr;
+}
+
+
+template <class K, class V>
+vector<int> HashMap<K, V>::count_elements_per_slot() const {
+    vector<int> slot_counts(slots, 0);
+
+    for (long i = 0; i < slots; ++i) {
+        Node* current = table[i];
+        while (current != nullptr) {
+            slot_counts[i]++;
+            current = current->next;
+        }
+    }
+    return slot_counts;
+}

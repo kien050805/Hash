@@ -46,6 +46,9 @@ public:
     void del(const K &key);
     V &operator[](const K &key);
     pair<K, V> *search(const K &key);
+    Node *search_node(const K &key);
+    vector<int> count_elements_per_slot() const;
+
 };
 
 #include "HashMap.cpp"
