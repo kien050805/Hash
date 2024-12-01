@@ -1,9 +1,7 @@
-//==============================================================
+//========================================================
+// James Bui & Kien Le & Trinity Meckel
+// November 2024
 // RBTreeNode.cpp
-// Authors : Kien, Trinity, James
-// 11/24/2024
-//
-// Description:
 // This file contains the implementations of the red-black tree node functions
 //==============================================================
 #include <iostream>
