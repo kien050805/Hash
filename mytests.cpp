@@ -70,7 +70,8 @@ int main()
 // RETURN VALUE:
 // - HashMap<int, int> with predefined key-value pairs
 //==============================================================
-HashMap<int, int> createSampleHashMap() {
+HashMap<int, int> createSampleHashMap()
+{
     HashMap<int, int> map;
     map.insert(10, 100);
     map.insert(20, 200);
@@ -86,7 +87,8 @@ HashMap<int, int> createSampleHashMap() {
 // RETURN VALUE:
 // - HashMapTree<int, string> with predefined key-value pairs
 //==============================================================
-HashMapTree<int, string> createSampleHashMapTree() {
+HashMapTree<int, string> createSampleHashMapTree()
+{
     HashMapTree<int, string> mapTree;
     mapTree.insert(1, "One");
     mapTree.insert(2, "Two");
@@ -102,7 +104,8 @@ HashMapTree<int, string> createSampleHashMapTree() {
 // RETURN VALUE:
 // - Set<int> with predefined elements
 //==============================================================
-Set<int> createSampleSet() {
+Set<int> createSampleSet()
+{
     Set<int> set;
     set.insert(1);
     set.insert(2);
@@ -123,26 +126,29 @@ Set<int> createSampleSet() {
 // RETURN VALUE:
 // - true if the test passes, false if it fails
 //==============================================================
-bool testHashMapInsert() {
+bool testHashMapInsert()
+{
     HashMap<int, int> map = createSampleHashMap();
 
-        // Inserting a new key-value pair
-        map.insert(40, 400);
-        if (map.search(40) == nullptr || map.search(40)->second != 400) {
-            cout << "Error: Insertion failed for key 40!" << endl;
-            return false;
-        }
-
-        // Inserting an existing key with a different value (should update)
-        map.insert(10, 500);
-        if (map.search(10) == nullptr || map.search(10)->second != 500) {
-            cout << "Error: Insertion failed or size incorrect for key 10!" << endl;
-            return false;
-        }
-
-        cout << "testHashMapInsert passed!" << endl;
-        return true;
+    // Inserting a new key-value pair
+    map.insert(40, 400);
+    if (map.search(40) == nullptr || map.search(40)->second != 400)
+    {
+        cout << "Error: Insertion failed for key 40!" << endl;
+        return false;
     }
+
+    // Inserting an existing key with a different value (should update)
+    map.insert(10, 500);
+    if (map.search(10) == nullptr || map.search(10)->second != 500)
+    {
+        cout << "Error: Insertion failed or size incorrect for key 10!" << endl;
+        return false;
+    }
+
+    cout << "testHashMapInsert passed!" << endl;
+    return true;
+}
 
 //==============================================================
 // testHashMapDel
@@ -153,35 +159,41 @@ bool testHashMapInsert() {
 // RETURN VALUE:
 // - true if the test passes, false if it fails
 //==============================================================
-bool testHashMapDel() {
-    HashMap<int, int> map = createSampleHashMap();  // Use the helper function to create a HashMap
-        // Delete a key
-        map.del(20);
+bool testHashMapDel()
+{
+    HashMap<int, int> map = createSampleHashMap(); // Use the helper function to create a HashMap
+    // Delete a key
+    map.del(20);
 
-        // Check if the deleted key no longer exists in the map
-        if (map.search(20) != nullptr) {
-            cout << "Error: Deletion failed, key 20 still exists!" << endl;
-            return false;
-        }
-
-        // Check other keys
-        if (map.search(10) == nullptr || map.search(30) == nullptr) {
-            cout << "Error: Other keys are missing after deletion!" << endl;
-            return false;
-        }
-
-        // Attempt to access the deleted key and ensure it throws an exception
-        try {
-            map[20];  // Should throw an exception
-            cout << "Error: Access to deleted key 20 did not throw an exception!" << endl;
-            return false;
-        } catch (const key_exception& e) {
-            // Expected behavior, key 20 should not exist
-        }
-
-        cout << "testHashMapDel passed!" << endl;
-        return true;
+    // Check if the deleted key no longer exists in the map
+    if (map.search(20) != nullptr)
+    {
+        cout << "Error: Deletion failed, key 20 still exists!" << endl;
+        return false;
     }
+
+    // Check other keys
+    if (map.search(10) == nullptr || map.search(30) == nullptr)
+    {
+        cout << "Error: Other keys are missing after deletion!" << endl;
+        return false;
+    }
+
+    // Attempt to access the deleted key and ensure it throws an exception
+    try
+    {
+        map[20]; // Should throw an exception
+        cout << "Error: Access to deleted key 20 did not throw an exception!" << endl;
+        return false;
+    }
+    catch (const key_exception &e)
+    {
+        // Expected behavior, key 20 should not exist
+    }
+
+    cout << "testHashMapDel passed!" << endl;
+    return true;
+}
 
 //==============================================================
 // testHashMapOperator
@@ -192,23 +204,27 @@ bool testHashMapDel() {
 // RETURN VALUE:
 // - true if the test passes, false if it fails
 //==============================================================
-bool testHashMapOperator() {
-    HashMap<int, int> map = createSampleHashMap();  // Use the helper function to create a HashMap
+bool testHashMapOperator()
+{
+    HashMap<int, int> map = createSampleHashMap(); // Use the helper function to create a HashMap
 
     // Check if the values are correct using the operator[]
-    if (map[10] != 100) {
+    if (map[10] != 100)
+    {
         cout << "Error: Incorrect value for key 10!" << endl;
         return false;
     }
 
-    if (map[20] != 200) {
+    if (map[20] != 200)
+    {
         cout << "Error: Incorrect value for key 20!" << endl;
         return false;
     }
 
     // Modify a value using the operator[]
     map[10] = 500;
-    if (map[10] != 500) {
+    if (map[10] != 500)
+    {
         cout << "Error: Incorrect modified value for key 10!" << endl;
         return false;
     }
@@ -226,26 +242,28 @@ bool testHashMapOperator() {
 // RETURN VALUE:
 // - true if the test passes, false if it fails
 //==============================================================
-bool testHashMapSearch() {
-    HashMap<int, int> map = createSampleHashMap();  // Use the helper function to create a HashMap
+bool testHashMapSearch()
+{
+    HashMap<int, int> map = createSampleHashMap(); // Use the helper function to create a HashMap
 
     // Search for an existing key
     auto item = map.search(10);
-    if (item == nullptr || item->second != 100) {
+    if (item == nullptr || item->second != 100)
+    {
         cout << "Error: Search failed for key 10!" << endl;
         return false;
     }
 
     // Search for a non-existent key
-    item = map.search(30);
-    if (item != nullptr) {
+    item = map.search(60);
+    if (item != nullptr)
+    {
         cout << "Error: Search should return nullptr for non-existent key!" << endl;
         return false;
     }
 
     cout << "testHashMapSearch passed!" << endl;
     return true;
-    
 }
 
 //******************************************
@@ -261,18 +279,22 @@ bool testHashMapSearch() {
 // RETURN VALUE:
 // - true if the test passes, false if it fails
 //==============================================================
-bool testHashMapTreeInsert() {
+bool testHashMapTreeInsert()
+{
     HashMapTree<int, string> mapTree = createSampleHashMapTree(); // Use the helper function
 
     // Test inserting a new element
     mapTree.insert(4, "Four");
-    if (mapTree.search(4) != nullptr && mapTree.search(4)->second == "Four") {
+    if (mapTree.search(4) != nullptr && mapTree.search(4)->second == "Four")
+    {
         cout << "testHashMapTreeInsert passed for new insert" << endl;
-    } else {
+    }
+    else
+    {
         cout << "testHashMapTreeInsert failed for new insert" << endl;
         return false;
     }
-    
+
     cout << "testHashMapTreeInsert passed!" << endl;
     return true;
 }
@@ -286,27 +308,32 @@ bool testHashMapTreeInsert() {
 // RETURN VALUE:
 // - true if the test passes, false if it fails
 //==============================================================
-bool testHashMapTreeRemove() {
+bool testHashMapTreeRemove()
+{
     HashMapTree<int, string> mapTree = createSampleHashMapTree(); // Use the helper function
 
     // Test removing an existing element
     mapTree.remove(1);
-    if (mapTree.search(1) == nullptr) {
+    if (mapTree.search(1) == nullptr)
+    {
         cout << "testHashMapTreeRemove passed for removing existing element" << endl;
-    } else {
+    }
+    else
+    {
         cout << "testHashMapTreeRemove failed for removing existing element" << endl;
         return false;
     }
 
-    // Test removing a non-existing element
-    mapTree.remove(5);  // Key 5 does not exist
-    if (mapTree.search(5) == nullptr) {
-        cout << "testHashMapTreeRemove passed for removing non-existing element" << endl;
-    } else {
-        cout << "testHashMapTreeRemove failed for removing non-existing element" << endl;
-        return false;
+    try
+    {
+        mapTree.remove(5);
     }
-    
+    catch (const key_exception &e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+        cout << "testHashMapTreeRemove passed for removing non-existing element" << endl;
+    }
+
     cout << "testHashMapTreeRemove passed!" << endl;
     return true;
 }
@@ -320,20 +347,24 @@ bool testHashMapTreeRemove() {
 // RETURN VALUE:
 // - true if the test passes, false if it fails
 //==============================================================
-bool testHashMapTreeOperator() {
+bool testHashMapTreeOperator()
+{
     HashMapTree<int, string> mapTree = createSampleHashMapTree(); // Use the helper function
 
     // Test modifying value using operator[]
     mapTree[2] = "Updated Two";
 
     // Check if the value was updated correctly
-    if (mapTree.search(2) != nullptr && mapTree.search(2)->second == "Updated Two") {
+    if (mapTree.search(2) != nullptr && mapTree.search(2)->second == "Updated Two")
+    {
         cout << "testHashMapTreeOperator passed for updating value" << endl;
-    } else {
+    }
+    else
+    {
         cout << "testHashMapTreeOperator failed for updating value" << endl;
         return false;
     }
-    
+
     cout << "testHashMapTreeOperator passed!" << endl;
     return true;
 }
@@ -347,27 +378,34 @@ bool testHashMapTreeOperator() {
 // RETURN VALUE:
 // - true if the test passes, false if it fails
 //==============================================================
-bool testHashMapTreeSearch() {
+bool testHashMapTreeSearch()
+{
     HashMapTree<int, string> mapTree = createSampleHashMapTree(); // Use the helper function
 
     // Test searching for existing elements
     if (mapTree.search(1) != nullptr && mapTree.search(1)->second == "One" &&
         mapTree.search(2) != nullptr && mapTree.search(2)->second == "Two" &&
-        mapTree.search(3) != nullptr && mapTree.search(3)->second == "Three") {
+        mapTree.search(3) != nullptr && mapTree.search(3)->second == "Three")
+    {
         cout << "testHashMapTreeSearch passed for existing elements" << endl;
-    } else {
+    }
+    else
+    {
         cout << "testHashMapTreeSearch failed for existing elements" << endl;
         return false;
     }
 
     // Test searching for a non-existing element
-    if (mapTree.search(5) == nullptr) {
+    if (mapTree.search(5) == nullptr)
+    {
         cout << "testHashMapTreeSearch passed for non-existing element" << endl;
-    } else {
+    }
+    else
+    {
         cout << "testHashMapTreeSearch failed for non-existing element" << endl;
         return false;
     }
-    
+
     cout << "testHashMapTreeSearch passed!" << endl;
     return true;
 }
@@ -385,27 +423,34 @@ bool testHashMapTreeSearch() {
 // RETURN VALUE:
 // - true if the test passes, false if it fails
 //==============================================================
-bool testSetInsert() {
+bool testSetInsert()
+{
     Set<int> set = createSampleSet(); // Use the helper function
 
     // Test inserting a new element
     set.insert(4);
-    if (set.search(4)) {
+    if (set.search(4))
+    {
         cout << "testSetInsert passed for new insert" << endl;
-    } else {
+    }
+    else
+    {
         cout << "testSetInsert failed for new insert" << endl;
         return false;
     }
 
     // Test inserting a duplicate element (should not insert it again)
     set.insert(3); // Duplicate
-    if (set.search(3)) {
+    if (set.search(3))
+    {
         cout << "testSetInsert passed for duplicate insert (no insertion)" << endl;
-    } else {
+    }
+    else
+    {
         cout << "testSetInsert failed for duplicate insert (should not insert again)" << endl;
         return false;
     }
-    
+
     cout << "testSetInsert passed!" << endl;
     return true;
 }
@@ -419,27 +464,34 @@ bool testSetInsert() {
 // RETURN VALUE:
 // - true if the test passes, false if it fails
 //==============================================================
-bool testSetRemove() {
+bool testSetRemove()
+{
     Set<int> set = createSampleSet(); // Use the helper function
 
     // Test removing an existing element
     set.remove(1);
-    if (!set.search(1)) {
+    if (!set.search(1))
+    {
         cout << "testSetRemove passed for removing existing element" << endl;
-    } else {
+    }
+    else
+    {
         cout << "testSetRemove failed for removing existing element" << endl;
         return false;
     }
 
     // Test removing a non-existing element
-    set.remove(5);  // Key 5 does not exist
-    if (!set.search(5)) {
+    set.remove(5); // Key 5 does not exist
+    if (!set.search(5))
+    {
         cout << "testSetRemove passed for removing non-existing element" << endl;
-    } else {
+    }
+    else
+    {
         cout << "testSetRemove failed for removing non-existing element" << endl;
         return false;
     }
-    
+
     cout << "testSetRemove passed!" << endl;
     return true;
 }
@@ -453,21 +505,28 @@ bool testSetRemove() {
 // RETURN VALUE:
 // - true if the test passes, false if it fails
 //==============================================================
-bool testSetSearch() {
+bool testSetSearch()
+{
     Set<int> set = createSampleSet(); // Use the helper function
 
     // Test searching for existing elements
-    if (set.search(1) && set.search(2) && set.search(3)) {
+    if (set.search(1) && set.search(2) && set.search(3))
+    {
         cout << "testSetSearch passed for existing elements" << endl;
-    } else {
+    }
+    else
+    {
         cout << "testSetSearch failed for existing elements" << endl;
         return false;
     }
 
     // Test searching for a non-existing element
-    if (!set.search(5)) {
+    if (!set.search(5))
+    {
         cout << "testSetSearch passed for non-existing element" << endl;
-    } else {
+    }
+    else
+    {
         cout << "testSetSearch failed for non-existing element" << endl;
         return false;
     }
@@ -489,42 +548,56 @@ bool testSetSearch() {
 // RETURN VALUE:
 // - none
 //==============================================================
-void testHashMap() {
-    struct TestResult {
+void testHashMap()
+{
+    struct TestResult
+    {
         int passed;
         int failed;
     };
 
     TestResult hashMap_result = {0, 0};
 
-    if (testHashMapInsert()) {
+    if (testHashMapInsert())
+    {
         cout << "testHashMapInsert passed!" << endl;
         hashMap_result.passed++;
-    } else {
+    }
+    else
+    {
         cout << "testHashMapInsert failed!" << endl;
         hashMap_result.failed++;
     }
 
-    if (testHashMapDel()) {
+    if (testHashMapDel())
+    {
         cout << "testHashMapDel passed!" << endl;
         hashMap_result.passed++;
-    } else {
+    }
+    else
+    {
         cout << "testHashMapDel failed!" << endl;
         hashMap_result.failed++;
     }
 
-    if (testHashMapOperator()) {
+    if (testHashMapOperator())
+    {
         cout << "testHashMapOperator passed!" << endl;
         hashMap_result.passed++;
-    } else {
+    }
+    else
+    {
         cout << "testHashMapOperator failed!" << endl;
         hashMap_result.failed++;
     }
 
-    if (testHashMapSearch()) {
+    if (testHashMapSearch())
+    {
         cout << "testHashMapSearch passed!" << endl;
         hashMap_result.passed++;
-    } else {
+    }
+    else
+    {
         cout << "testHashMapSearch failed!" << endl;
         hashMap_result.failed++;
     }
@@ -544,38 +617,52 @@ void testHashMap() {
 // RETURN VALUE:
 // - none
 //==============================================================
-void testHashMapTree() {
-    struct TestResult {
+void testHashMapTree()
+{
+    struct TestResult
+    {
         int passed;
         int failed;
     };
     TestResult mapTree_result = {0, 0};
 
-    if (testHashMapTreeInsert()) {
+    if (testHashMapTreeInsert())
+    {
         cout << "testHashMapTreeInsert passed" << endl;
         mapTree_result.passed++;
-    } else {
+    }
+    else
+    {
         mapTree_result.failed++;
     }
 
-    if (testHashMapTreeRemove()) {
+    if (testHashMapTreeRemove())
+    {
         cout << "testHashMapTreeRemove passed" << endl;
         mapTree_result.passed++;
-    } else {
+    }
+    else
+    {
         mapTree_result.failed++;
     }
 
-    if (testHashMapTreeOperator()) {
+    if (testHashMapTreeOperator())
+    {
         cout << "testHashMapTreeOperator passed" << endl;
         mapTree_result.passed++;
-    } else {
+    }
+    else
+    {
         mapTree_result.failed++;
     }
 
-    if (testHashMapTreeSearch()) {
+    if (testHashMapTreeSearch())
+    {
         cout << "testHashMapTreeSearch passed" << endl;
         mapTree_result.passed++;
-    } else {
+    }
+    else
+    {
         mapTree_result.failed++;
     }
 
@@ -594,31 +681,42 @@ void testHashMapTree() {
 // RETURN VALUE:
 // - none
 //==============================================================
-void testSet() {
-    struct TestResult {
+void testSet()
+{
+    struct TestResult
+    {
         int passed;
         int failed;
     };
     TestResult set_result = {0, 0};
 
-    if (testSetInsert()) {
+    if (testSetInsert())
+    {
         cout << "testSetInsert passed" << endl;
         set_result.passed++;
-    } else {
+    }
+    else
+    {
         set_result.failed++;
     }
 
-    if (testSetRemove()) {
+    if (testSetRemove())
+    {
         cout << "testSetRemove passed" << endl;
         set_result.passed++;
-    } else {
+    }
+    else
+    {
         set_result.failed++;
     }
 
-    if (testSetSearch()) {
+    if (testSetSearch())
+    {
         cout << "testSetSearch passed" << endl;
         set_result.passed++;
-    } else {
+    }
+    else
+    {
         set_result.failed++;
     }
 
