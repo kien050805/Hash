@@ -10,6 +10,15 @@
 
 using namespace std;
 
+//==============================================================
+// HashMapTree
+// Default constructor for the HashMapTree class. Initializes the 
+// hash table with the default number of slots and a hash function.
+// PARAMETERS:
+// - none
+// RETURN VALUE:
+// - none
+//==============================================================
 template <class K, class V>
 HashMapTree<K, V>::HashMapTree()
 {
@@ -19,6 +28,15 @@ HashMapTree<K, V>::HashMapTree()
     table = new RBTree<pair<K, V>>[slots];
 };
 
+//==============================================================
+// HashMapTree
+// Parameterized constructor for the HashMapTree class. Initializes 
+// the hash table with a given number of slots and a hash function.
+// PARAMETERS:
+// - m: number of slots for the hash table
+// RETURN VALUE:
+// - none
+//==============================================================
 template <class K, class V>
 HashMapTree<K, V>::HashMapTree(size_t m)
 {
@@ -28,12 +46,30 @@ HashMapTree<K, V>::HashMapTree(size_t m)
     table = new RBTree<pair<K, V>>[slots];
 };
 
+//==============================================================
+// ~HashMapTree
+// Destructor for the HashMapTree class. Frees the memory allocated
+// for the hash table.
+// PARAMETERS:
+// - none
+// RETURN VALUE:
+// - none
+//==============================================================
 template <class K, class V>
 HashMapTree<K, V>::~HashMapTree()
 {
     delete[] table;
 };
 
+//==============================================================
+// HashMapTree
+// Copy constructor for the HashMapTree class. Creates a new object
+// as a copy of an existing HashMapTree.
+// PARAMETERS:
+// - copy: the HashMapTree to copy from
+// RETURN VALUE:
+// - none
+//==============================================================
 template<class K, class V>
 HashMapTree<K, V>::HashMapTree(const HashMapTree& copy) {
     if (this != &copy) {
@@ -43,6 +79,15 @@ HashMapTree<K, V>::HashMapTree(const HashMapTree& copy) {
     }
 }
 
+//==============================================================
+// operator=
+// Assignment operator for the HashMapTree class. Assigns the values
+// of another HashMapTree to this one.
+// PARAMETERS:
+// - copy: the HashMapTree to assign from
+// RETURN VALUE:
+// - reference to the current object
+//==============================================================
 template<class K, class V>
 HashMapTree<K, V>& HashMapTree<K, V>::operator=(const HashMapTree<K, V>& copy) {
     if (this != &copy) {
@@ -53,6 +98,16 @@ HashMapTree<K, V>& HashMapTree<K, V>::operator=(const HashMapTree<K, V>& copy) {
     return *this;
 }
 
+//==============================================================
+// insert
+// Inserts a key-value pair into the hash map tree. If the key 
+// already exists, the value is updated.
+// PARAMETERS:
+// - key: key of the item to insert
+// - value: value of the item to insert
+// RETURN VALUE:
+// - none
+//==============================================================
 template <class K, class V>
 void HashMapTree<K, V>::insert(const K &key, const V &value)
 {
@@ -71,6 +126,18 @@ void HashMapTree<K, V>::insert(const K &key, const V &value)
         table[slot].insert(temp);
     };
 }
+
+//==============================================================
+// remove
+// Removes the key-value pair associated with the provided key 
+// from the hash map tree.
+// PARAMETERS:
+// - key: key of the item to remove
+// RETURN VALUE:
+// - none
+// EXCEPTIONS:
+// - throws key_exception if the key is not found
+//==============================================================
 template <class K, class V>
 void HashMapTree<K, V>::remove(const K &key)
 {
@@ -87,6 +154,18 @@ void HashMapTree<K, V>::remove(const K &key)
     }
 };
 
+//==============================================================
+// operator[]
+// Accesses the value associated with the given key. If the key 
+// is found, returns the corresponding value. Throws an exception 
+// if the key is not found.
+// PARAMETERS:
+// - key: key of the item to access
+// RETURN VALUE:
+// - reference to the value associated with the key
+// EXCEPTIONS:
+// - throws key_exception if the key is not found
+//==============================================================
 template <class K, class V>
 V &HashMapTree<K, V>::operator[](const K &key)
 {
@@ -101,6 +180,15 @@ V &HashMapTree<K, V>::operator[](const K &key)
     throw key_exception("Key Not Found");
 };
 
+//==============================================================
+// search
+// Searches for the key-value pair associated with the given key 
+// in the hash map tree and returns a pointer to the pair.
+// PARAMETERS:
+// - key: key of the item to search for
+// RETURN VALUE:
+// - pointer to the key-value pair if found, nullptr if not found
+//==============================================================
 template <class K, class V>
 pair<K, V> *HashMapTree<K, V>::search(const K &key)
 {
@@ -114,3 +202,5 @@ pair<K, V> *HashMapTree<K, V>::search(const K &key)
     
     return item->value();
 };
+
+
