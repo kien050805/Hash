@@ -208,6 +208,16 @@ pair<K, V> *HashMapTree<K, V>::search(const K &key)
     return item->value();
 };
 
+//==============================================================
+// search (RBTreePair)
+// Searches the Red-Black Tree for a node containing the specified 
+// key-value pair and returns a pointer to the node if found.
+// PARAMETERS:
+// - key: the key-value pair to search for
+// RETURN VALUE:
+// - pointer to the node containing the key-value pair, or nullptr 
+//   if not found
+//==============================================================
 template <class K, class V>
 RBTreeNode<pair<K, V> > *HashMapTree<K, V>::RBTreePair::search(const pair<K, V> &key) const
 {
@@ -230,6 +240,15 @@ RBTreeNode<pair<K, V> > *HashMapTree<K, V>::RBTreePair::search(const pair<K, V> 
     return nullptr;
 };
 
+//==============================================================
+// insert (RBTreePair)
+// Inserts a new key-value pair into the Red-Black Tree and balances
+// the tree to maintain its properties.
+// PARAMETERS:
+// - value: the key-value pair to insert
+// RETURN VALUE:
+// - pointer to the newly inserted node
+//==============================================================
 template <class K, class V>
 RBTreeNode<pair<K, V> > *HashMapTree<K, V>::RBTreePair::insert(pair<K, V> value)
 {
@@ -272,6 +291,15 @@ RBTreeNode<pair<K, V> > *HashMapTree<K, V>::RBTreePair::insert(pair<K, V> value)
     return inserted;
 };
 
+//==============================================================
+// remove (RBTreePair)
+// Removes a key-value pair from the Red-Black Tree and rebalances 
+// the tree to maintain its properties.
+// PARAMETERS:
+// - value: the key-value pair to remove
+// RETURN VALUE:
+// - none
+//==============================================================
 template <class K, class V>
 void HashMapTree<K, V>::RBTreePair::remove(pair<K, V> value)
 {
