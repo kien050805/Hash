@@ -1,8 +1,7 @@
-//=========================================================
+//========================================================
+// James Bui & Kien Le & Trinity Meckel
+// November 2024
 // RBTree.hpp
-// Authors : Kien, Trinity, James
-// 11/24/2024
-//
 // This is the header file with definitions of functions for the RBTreeNode class
 //=========================================================
 #include <iostream>
