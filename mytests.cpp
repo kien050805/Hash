@@ -155,26 +155,33 @@ bool testHashMapInsert() {
 //==============================================================
 bool testHashMapDel() {
     HashMap<int, int> map = createSampleHashMap();  // Use the helper function to create a HashMap
+        // Delete a key
+        map.del(20);
 
-    // Delete a key and check if the size decreases
-    map.del(20);
-    if (map.getSize() != 2) {
-        cout << "Error: Map size is incorrect after deleting key 20!" << endl;
-        return false;
+        // Check if the deleted key no longer exists in the map
+        if (map.search(20) != nullptr) {
+            cout << "Error: Deletion failed, key 20 still exists!" << endl;
+            return false;
+        }
+
+        // Check other keys
+        if (map.search(10) == nullptr || map.search(30) == nullptr) {
+            cout << "Error: Other keys are missing after deletion!" << endl;
+            return false;
+        }
+
+        // Attempt to access the deleted key and ensure it throws an exception
+        try {
+            map[20];  // Should throw an exception
+            cout << "Error: Access to deleted key 20 did not throw an exception!" << endl;
+            return false;
+        } catch (const key_exception& e) {
+            // Expected behavior, key 20 should not exist
+        }
+
+        cout << "testHashMapDel passed!" << endl;
+        return true;
     }
-
-    // Try to access a deleted key
-    try {
-        map[20];  // Should throw an exception
-        cout << "Error: Deletion failed, key 20 should not exist!" << endl;
-        return false;
-    } catch (const key_exception& e) {
-        // Expected behavior, key should be deleted
-    }
-
-    cout << "testHashMapDel passed!" << endl;
-    return true;
-}
 
 //==============================================================
 // testHashMapOperator
