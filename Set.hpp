@@ -29,7 +29,7 @@ public:
     bool search(const T &value);
 };
 
-#include "Set.hpp"
+#include "Set.cpp"
 
 #endif 
 
