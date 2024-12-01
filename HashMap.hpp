@@ -1,11 +1,9 @@
-//==============================================================
+//========================================================
+// James Bui & Kien Le & Trinity Meckel
+// November 2024
 // HashMap.hpp
-// Authors : Kien, Trinity, James
-// 11/22/2024
-//
-// Description:
 // This header file defines the HashMap class template
-//==============================================================
+//========================================================
 #include <iostream>
 #include <vector>
 #include <utility>
