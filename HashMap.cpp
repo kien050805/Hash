@@ -9,12 +9,15 @@
 #include "HashMap.hpp"
 #include "customexceptions.hpp"
 
-/**
- * @brief Construct a new Hash Map<K,V>:: Hash Map object
- *
- * @tparam K: templated key data type
- * @tparam V: templated value data type
- */
+//==============================================================
+// HashMap
+// Default constructor for the HashMap class. Initializes the 
+// hash table with the default number of slots and a hash function.
+// PARAMETERS:
+// - none
+// RETURN VALUE:
+// - none
+//==============================================================
 template <class K, class V>
 HashMap<K, V>::HashMap()
 {
@@ -29,13 +32,15 @@ HashMap<K, V>::HashMap()
     };
 };
 
-/**
- * @brief Construct a new Hash Map<K,V>:: Hash Map object
- *
- * @tparam K: templated key data type
- * @tparam V: templated value data type
- * @param m: number of hash table slots
- */
+//==============================================================
+// HashMap
+// Parameterized constructor for the HashMap class. Initializes 
+// the hash table with a custom number of slots and a hash function.
+// PARAMETERS:
+// - m: Number of hash table slots.
+// RETURN VALUE:
+// - none
+//==============================================================
 template <class K, class V>
 HashMap<K, V>::HashMap(long m)
 {
@@ -55,12 +60,15 @@ HashMap<K, V>::HashMap(long m)
     };
 };
 
-/**
- * @brief Destroy the Hash Map<K,V>:: Hash Map object
- *
- * @tparam K: templated key data type
- * @tparam V: templated value data type
- */
+//==============================================================
+// ~HashMap
+// Destructor for the HashMap class. Deletes all nodes in the hash 
+// table and frees the allocated memory for the table.
+// PARAMETERS:
+// - none
+// RETURN VALUE:
+// - none
+//==============================================================
 template <class K, class V>
 HashMap<K, V>::~HashMap()
 {
@@ -77,14 +85,16 @@ HashMap<K, V>::~HashMap()
     delete[] table;
 }
 
-/**
- * @brief Insert the item <K, V> into the hash table
- * 
- * @tparam K: templated key data type
- * @tparam V: templated value data type
- * @param key: item key
- * @param value: item value
- */
+//==============================================================
+// insert
+// Inserts a new item (key, value) into the hash table. If the 
+// key already exists, updates the value.
+// PARAMETERS:
+// - key: The key of the item to insert.
+// - value: The value of the item to insert.
+// RETURN VALUE:
+// - none
+//==============================================================
 template <class K, class V>
 void HashMap<K, V>::insert(const K &key, const V &value)
 {
@@ -114,13 +124,14 @@ void HashMap<K, V>::insert(const K &key, const V &value)
     size++;
 }
 
-/**
- * @brief Remove the node D from the hash table
- * 
- * @tparam K: templated key data type
- * @tparam V: templated value data type
- * @param D: Pointer to the node to be deleted
- */
+//==============================================================
+// remove
+// Removes a specific node (D) from the hash table.
+// PARAMETERS:
+// - D: Pointer to the node to remove from the hash table.
+// RETURN VALUE:
+// - none
+//==============================================================
 template <class K, class V>
 void HashMap<K, V>::remove(Node *D)
 {
@@ -150,13 +161,14 @@ void HashMap<K, V>::remove(Node *D)
     delete D;
 }
 
-/**
- * @brief Delete the item with key from the hash table
- * 
- * @tparam K: templated key data type
- * @tparam V: templated value data type
- * @param key: key of the item to be deleted
- */
+//==============================================================
+// del
+// Deletes the item with the specified key from the hash table.
+// PARAMETERS:
+// - key: The key of the item to delete.
+// RETURN VALUE:
+// - none
+//==============================================================
 template <class K, class V>
 void HashMap<K, V>::del(const K &key)
 {
@@ -176,14 +188,15 @@ void HashMap<K, V>::del(const K &key)
     throw key_exception();
 };
 
-/**
- * @brief Access the item with key in the hash table
- * 
- * @tparam K: templated key data type
- * @tparam V: templated value data type
- * @param key: key of the item to access
- * @return V&: Value of the item with the given key
- */
+//==============================================================
+// operator[]
+// Accesses the value associated with the specified key. If the 
+// key does not exist, throws an exception.
+// PARAMETERS:
+// - key: The key of the item to access.
+// RETURN VALUE:
+// - V&: The value associated with the given key.
+//==============================================================
 template <class K, class V>
 V &HashMap<K, V>::operator[](const K &key)
 {
@@ -201,14 +214,16 @@ V &HashMap<K, V>::operator[](const K &key)
     throw key_exception();
 };
 
-/**
- * @brief Search the item with key in the hash table
- * 
- * @tparam K: templated key data type
- * @tparam V: templated value data type
- * @param key: key of the item to search for
- * @return pair<K, V>*: pointer to the item pair
- */
+//==============================================================
+// search
+// Searches for the item with the given key in the hash table. 
+// Returns a pointer to the key-value pair if found, otherwise 
+// returns nullptr.
+// PARAMETERS:
+// - key: The key of the item to search for.
+// RETURN VALUE:
+// - pair<K, V>*: Pointer to the item (key-value pair), or nullptr if not found.
+//==============================================================
 template <class K, class V>
 pair<K, V> *HashMap<K, V>::search(const K &key)
 {
@@ -225,3 +240,4 @@ pair<K, V> *HashMap<K, V>::search(const K &key)
 
     return nullptr;
 };
+
