@@ -1,9 +1,8 @@
 //========================================================
 // James Bui & Kien Le & Trinity Meckel
 // November 2024
-// HashMapTree.cpp
-// This file contains the implementation of the HashMapTree
-// class template
+// HashMapTree.hpp
+// This header file defines the HashMapTree class template
 //========================================================
 #include <iostream>
 
