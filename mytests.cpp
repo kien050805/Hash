@@ -10,7 +10,7 @@
 #include "Hash.hpp"
 #include "HashMapTree.hpp"
 #include "Set.hpp"
-
+#include <climits>
 #include <iostream>
 using namespace std;
 
