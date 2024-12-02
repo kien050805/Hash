@@ -81,6 +81,8 @@ public:
     void remove(const K &key);
     V &operator[](const K &key);
     pair<K, V> *search(const K &key);
+    std::vector<int> get_slot_distribution() const;
+
 };
 
 #include "HashMapTree.cpp"

@@ -6,6 +6,7 @@
 // class template
 //========================================================
 #include <iostream>
+#include <vector>
 #include "HashMapTree.hpp"
 
 using namespace std;
@@ -355,3 +356,16 @@ void HashMapTree<K, V>::RBTreePair::remove(pair<K, V> value)
     this->NIL_fixup();
     this->rbt_size--;
 };
+
+
+template <class K, class V>
+vector<int> HashMapTree<K, V>::get_slot_distribution() const {
+    std::vector<int> slot_counts(slots, 0);
+
+    for (long i = 0; i < slots; ++i) {
+        if (table[i].size() != 0) {  // Check if the tree is not empty
+            slot_counts[i] = table[i].size(); // Use RBTree's size function
+        }
+    }
+    return slot_counts;
+}

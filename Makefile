@@ -23,6 +23,10 @@ performance: performance.o
 	g++ -o performance performance.o
 	./performance
 
+checkleaks:
+	g++ -o mytests mytests.o
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose  ./mytests
+
 clean:
 	rm *.o mytests performance
 	clear
