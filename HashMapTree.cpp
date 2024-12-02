@@ -357,7 +357,14 @@ void HashMapTree<K, V>::RBTreePair::remove(pair<K, V> value)
     this->rbt_size--;
 };
 
-
+//==============================================================
+// get_slot_distribution 
+// Get the sizes of each slots in the tree
+// PARAMETERS:
+// - None
+// RETURN VALUE:
+// - vector<int> a vector of slots sizes
+//==============================================================
 template <class K, class V>
 vector<int> HashMapTree<K, V>::get_slot_distribution() const {
     std::vector<int> slot_counts(slots, 0);

@@ -365,7 +365,14 @@ typename HashMap<K, V>::Node *HashMap<K, V>::search_node(const K &key)
     return nullptr;
 }
 
-
+//==============================================================
+// count_elements_per_slot
+// Count the elements of each slots of the hash table
+// PARAMETERS:
+// - none
+// RETURN VALUE:
+// - vector<int>: A vector of slot sizes
+//==============================================================
 template <class K, class V>
 vector<int> HashMap<K, V>::count_elements_per_slot() const {
     vector<int> slot_counts(slots, 0);
