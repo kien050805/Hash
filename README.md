@@ -46,7 +46,9 @@ There is no additional information.
 ### Performance of operations
 ![Performance plot](combined_hashmap_hashmaptree_performance_log.png)
 
-The performance plot of insertion, deletion and searching shows a similar pattern fo each operation. We see that the HashMap class implementation of all three operations performs worse than that of the HashMapTree class. We also see deletion is the fastest for both implementations, while searching is the longest. This makes sense as the deletion operation only receives the pointer to the node as the parameter, while insertion also requires us to check whether that key exist in the table or not. Searching requires us to locate the slot and loop through the element, so it takes the most time out of the three.  
+The performance plot of insertion, deletion and searching shows a similar pattern fo each operation. We see that the HashMap class implementation of all three operations performs worse than that of the HashMapTree class. We also see deletion is the fastest for both implementations, while searching is the longest. This makes sense as the deletion operation only receives the pointer to the node as the parameter, while insertion also requires us to check whether that key exist in the table or not. Searching requires us to locate the slot and loop through the element, so it takes the most time out of the three. 
+
+Notice that for small input sizes, the performance is almost identical. But as the input size get to 1,000,000 , the difference become noticeable. 
 
 ### Distributions of elements into slots
 Below is the histogram of the number of elements per slot for the HashMap class.
