@@ -31,7 +31,7 @@ void measure_hashmaptree_operations(const std::vector<long>& lengths, int min_va
         int* arr = rand_arr(len, min_val, max_val);
 
         // Create a hash map tree
-        HashMapTree<int, int> hashMapTree;
+        HashMapTree<int, int> hashMapTree(10000);
 
         // Measure insertion time
         auto start_insert = std::chrono::high_resolution_clock::now();
@@ -96,7 +96,7 @@ void measure_hashmap_operations(const std::vector<long>& lengths, int min_val, i
         int* arr = rand_arr(len, min_val, max_val);
 
         // Create a hash map
-        HashMap<int, int> hashMap;
+        HashMap<int, int> hashMap(10000);
 
         // Measure insertion time
         auto start_insert = std::chrono::high_resolution_clock::now();
@@ -168,7 +168,7 @@ void analyze_hashmap_slot_distribution(
         int* arr = rand_arr(array_size, min_val, max_val);
 
         // Create HashMap
-        HashMap<int, int> hashMap;
+        HashMap<int, int> hashMap(10000);
 
         // Insert elements into the hash map
         for (long i = 0; i < array_size; ++i) {
@@ -207,7 +207,7 @@ void analyze_hashmaptree_slot_distribution(
         int* arr = rand_arr(array_size, min_val, max_val);
 
         // Create a HashMapTree
-        HashMapTree<int, int> hashMapTree(array_size);
+        HashMapTree<int, int> hashMapTree(10000);
 
         // Insert elements into the hash map tree
         for (long i = 0; i < array_size; ++i) {
