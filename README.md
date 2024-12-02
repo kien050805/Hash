@@ -69,10 +69,12 @@ The implementation of the *Priority Queue* class contains two private variables:
 **Attribute**: 
 - hashtable: hash table will map the index in the array to the object.
 - heap: a max-heap of the keys of the objects.
+- size: size of the priority queue.
 
 **Methods**
 - *insert(x, k)*: Just like the MAX-HEAP-INSERT algorithm in the textbook, but when we map x to index *heap_size*, we insert x to hash table using the key of x.
 - *maximum()*: Get the first key of the array, then use it to search for the element in the hash table
 - *extract_max()*: Using maximum(), we get the object with the maximum key. We then proceed to set the last value of the heap array to the first, reduce the heap_size by 1 and then max_heapify the array. We return the maximum element.
 - *increase_key(x, k)*: We check if the key *k* is valid, then find the object x in hash table using its key, and find the index i. We then exchange the object at index i with object at index parent(i). Then we proceeds as the MAX-HEAP-INCREASE-KEY algorithm in the book
-- *max_heapify(i)*: turn the array of key into a max-heap, then exchange the mapping of the objects in the hash table accordingly.
+- *max_heapify(i)*: turn the array of key into a max-heap, then exchange the mapping of the objects in the hash table accordingly, like the MAX-HEAPIFY algorithm.
+- *size()*: return the size of the priority queue.
